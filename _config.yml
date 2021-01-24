@@ -4,6 +4,7 @@ tagline:      This are some interesting things that I've been collecting till to
 baseurl:      ""
 paginate:     1
 locale:       "en"
+show_downloads: false
 
 # About/contact
 author:
