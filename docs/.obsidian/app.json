@@ -1,0 +1,10 @@
+{
+  "legacyEditor": false,
+  "livePreview": true,
+  "showFrontmatter": true,
+  "promptDelete": false,
+  "readableLineLength": true,
+  "fileSortOrder": "byCreatedTime",
+  "showLineNumber": false,
+  "strictLineBreaks": true
+}
