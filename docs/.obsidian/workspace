@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "游记/NOIP 2021 游记.md",
+            "file": "笔记/数据结构/Splay 树.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "游记/NOIP 2021 游记.md",
+                "file": "笔记/数据结构/Splay 树.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,8 +89,8 @@
   },
   "active": "edf517f1dd59e8ba",
   "lastOpenFiles": [
+    "笔记/数据结构/Splay 树.md",
     "游记/NOIP 2021 游记.md",
-    "简介.md",
-    "笔记/数据结构/Splay 树.md"
+    "简介.md"
   ]
 }
