@@ -2,6 +2,10 @@ site_name: xinchengo 的博客
 
 theme:
     name: 'material'
+    highlightjs: true
+    hljs_languages:
+        - cpp
+    
     palette:
 
     # Light mode
@@ -37,6 +41,15 @@ markdown_extensions:
   # - admonition
   - toc:
       permalink: true
+  - attr_list
+  - pymdownx.arithmatex:
+      generic: true
+  
+
+extra_javascript:
+  - javascripts/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 plugins:
   - search
