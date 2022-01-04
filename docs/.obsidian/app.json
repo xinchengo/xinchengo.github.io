@@ -6,5 +6,6 @@
   "readableLineLength": true,
   "fileSortOrder": "byCreatedTime",
   "showLineNumber": false,
-  "strictLineBreaks": true
+  "strictLineBreaks": true,
+  "alwaysUpdateLinks": true
 }

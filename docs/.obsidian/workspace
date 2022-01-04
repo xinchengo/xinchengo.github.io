@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "edf517f1dd59e8ba",
+        "id": "239a924e4df6b841",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "笔记/数据结构/Splay 树.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -69,7 +65,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "笔记/数据结构/Splay 树.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -87,10 +82,16 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "edf517f1dd59e8ba",
+  "active": "239a924e4df6b841",
   "lastOpenFiles": [
-    "笔记/数据结构/Splay 树.md",
+    "未命名.md",
+    "笔记/数据结构/Splay 树基础.md",
     "游记/NOIP 2021 游记.md",
+    "图片/zig_zig.png",
+    "图片/zig_zag.png",
+    "图片/splay_rotation.png",
+    "图片/splay_rotation_2.png",
+    "Pasted image 20220104214206.png.md",
     "简介.md"
   ]
 }

@@ -2,9 +2,6 @@ site_name: xinchengo 的博客
 
 theme:
     name: 'material'
-    highlightjs: true
-    hljs_languages:
-        - cpp
     
     palette:
 
