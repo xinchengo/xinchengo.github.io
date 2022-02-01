@@ -47,10 +47,10 @@ jobs:
 
       - name: Revert Changes
         run: |
-          git pull
           git reset --hard HEAD~1
       
       - name: Push Back the Repository
         uses: ad-m/github-push-action@master
         with:
           branch: blog
+          force: true
