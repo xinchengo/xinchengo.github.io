@@ -1,48 +1,56 @@
-name: Push to Blog Repository
+name: Push to Github Pages
 on:
   push:
     branches:
       - blog
 jobs:
-  deploy:
+  generate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the Blog Repository
         uses: actions/checkout@v2
         with:
           ref: blog
-          path: blog
-
-      - name: Checkout the Main Repository
-        uses: actions/checkout@v2
-        with:
-          ref: main
-          path: pages
       
-      # - name: Modify Raw Repository
-     
-      - name: Copy Files to the Main Repository
+      - name: Modify the Repository
         run: |
-          cp ./blog/index.md ./pages/docs/index.md
-          rm -rf ./pages/docs/题解/
-          mkdir ./pages/docs/题解/
-          cp ./blog/tutorial/* ./pages/docs/题解/
-          rm -rf ./pages/docs/笔记/
-          mkdir ./pages/docs/笔记/
-          cp ./blog/note/* ./pages/docs/笔记/
+          mkdir ./docs
+          mv ./index.md ./docs/index.md
+          mkdir ./docs/题解/
+          mv ./tutorial/* ./docs/题解/
+          mkdir ./docs/笔记/
+          mv ./note/* ./docs/笔记/
 
-      - name: Commit to the Main Repository
+      - name: Commit the Repository
         run: |
-          cd pages
           MESSAGE=`date`
           git config --global user.email github-actions[bot]@users.noreply.github.com
           git config --global user.name github-actions[bot]
           git add .
           git commit -m "Commit on $MESSAGE"
-          cd ..
 
-      - name: Push to Main
+      - name: Push the Repository
         uses: ad-m/github-push-action@master
         with:
-          branch: main
-          directory: "./pages"
+          branch: blog
+      
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      
+      - name: Generate Mkdocs
+        run: |
+          pip install mkdocs-material
+          pip install mkdocs-roamlinks-plugin
+          mkdocs gh-deploy --force
+
+      - name: Revert Changes
+        run: |
+          git pull
+          git reset --hard HEAD~1
+      
+      - name: Push Back the Repository
+        uses: ad-m/github-push-action@master
+        with:
+          branch: blog
