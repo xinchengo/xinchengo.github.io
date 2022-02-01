@@ -7,29 +7,32 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout the Blog Repository
+        uses: actions/checkout@v2
         with:
           ref: blog
           path: blog
-      - uses: actions/checkout@v2
+
+      - name: Checkout the Main Repository
+        uses: actions/checkout@v2
         with:
           ref: main
           path: pages
       
-      # Modify Raw Repository
-      - run: |
-          cd blog
-          rm ./LICENSE
-          rm ./README.md
-          cd ..
-      # Copy Files to the Blog Repository
-      - run: |
+      # - name: Modify Raw Repository
+     
+      - name: Copy Files to the Main Repository
+        run: |
           cp ./blog/index.md ./pages/docs/index.md
           rm -rf ./pages/docs/题解/
           mkdir ./pages/docs/题解/
-          cp ./blog/tutorial.md ./pages/docs/题解/tutorial.md
-      # Push to Main
-      - run: |
+          cp ./blog/tutorial/* ./pages/docs/题解/
+          rm -rf ./pages/docs/笔记/
+          mkdir ./pages/docs/笔记/
+          cp ./blog/note/* ./pages/docs/笔记/
+
+      - name: Commit to the Main Repository
+        run: |
           cd pages
           MESSAGE=`date`
           git config --global user.email github-actions[bot]@users.noreply.github.com
@@ -37,7 +40,9 @@ jobs:
           git add .
           git commit -m "Commit on $MESSAGE"
           cd ..
-      - uses: ad-m/github-push-action@master
+
+      - name: Push to Main
+        uses: ad-m/github-push-action@master
         with:
           branch: main
           directory: "./pages"
