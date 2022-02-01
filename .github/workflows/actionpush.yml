@@ -1,0 +1,43 @@
+name: Push to Blog Repository
+on:
+  push:
+    branches:
+      - blog
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: blog
+          path: blog
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+          path: pages
+      
+      # Modify Raw Repository
+      - run: |
+          cd blog
+          rm ./LICENSE
+          rm ./README.md
+          cd ..
+      # Copy Files to the Blog Repository
+      - run: |
+          cp ./blog/index.md ./pages/docs/index.md
+          rm -rf ./pages/docs/题解/
+          mkdir ./pages/docs/题解/
+          cp ./blog/tutorial.md ./pages/docs/题解/tutorial.md
+      # Push to Main
+      - run: |
+          cd pages
+          MESSAGE=`date`
+          git config --global user.email github-actions[bot]@users.noreply.github.com
+          git config --global user.name github-actions[bot]
+          git add .
+          git commit -m "Commit on $MESSAGE"
+          cd ..
+      - uses: ad-m/github-push-action@master
+        with:
+          branch: main
+          directory: "./pages"
