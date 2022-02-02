@@ -51,9 +51,10 @@ extra_javascript:
 
 plugins:
   - search:
-      lang: zh
+    lang: zh
   - roamlinks
-  - git-revision-date-localized
+  - git-revision-date-localized:
+    enable_creation_date: true
   
 extra:
   social:
