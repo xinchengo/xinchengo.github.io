@@ -11,6 +11,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: blog
+          fetch-depth: 0
       
       - name: Set Up Python
         uses: actions/setup-python@v2
