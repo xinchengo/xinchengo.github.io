@@ -3,6 +3,7 @@ repo_url: https://github.com/xinchengo/xinchengo.github.io/
 
 theme:
     name: 'material'
+    language: zh
     
     palette:
 
@@ -49,5 +50,12 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 plugins:
-  - search
-  - roamlinks 
+  - search:
+      lang: zh
+  - roamlinks
+  - git-revision-date-localized
+  
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/xinchengo/
