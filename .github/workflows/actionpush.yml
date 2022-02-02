@@ -20,6 +20,7 @@ jobs:
           mv ./tutorial/* ./docs/题解/
           mkdir ./docs/笔记/
           mv ./note/* ./docs/笔记/
+          cat lixinchen.cn > ./docs/CNAME
 
       - name: Commit the Repository
         run: |
@@ -54,23 +55,3 @@ jobs:
         with:
           branch: blog
           force: true
-
-      - name: Checkout the Pages Repository
-        uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-
-      - name: Generate CNAME
-        run: |
-          echo lixinchen.cn > CNAME
-
-      - name: Commit the CNAME
-        run: |
-          MESSAGE=`date`
-          git add .
-          git commit -m "Fix CNAME on $MESSAGE"
-
-      - name: Push to the Pages Repository
-        uses: ad-m/github-push-action@master
-        with:
-          branch: gh-pages
