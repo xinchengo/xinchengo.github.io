@@ -22,18 +22,18 @@ jobs:
           mv ./note/* ./docs/笔记/
           echo lixinchen.cn > ./docs/CNAME
 
-      - name: Commit the Repository
-        run: |
-          MESSAGE=`date`
-          git config --global user.email github-actions[bot]@users.noreply.github.com
-          git config --global user.name github-actions[bot]
-          git add .
-          git commit -m "Commit on $MESSAGE"
+      # - name: Commit the Repository
+      #   run: |
+      #     MESSAGE=`date`
+      #     git config --global user.email github-actions[bot]@users.noreply.github.com
+      #     git config --global user.name github-actions[bot]
+      #     git add .
+      #     git commit -m "Commit on $MESSAGE"
 
-      - name: Push the Repository
-        uses: ad-m/github-push-action@master
-        with:
-          branch: blog
+      # - name: Push the Repository
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     branch: blog
       
       - name: Set Up Python
         uses: actions/setup-python@v2
@@ -47,12 +47,12 @@ jobs:
           pip install mkdocs-git-revision-date-localized-plugin
           mkdocs gh-deploy --force
 
-      - name: Revert Changes
-        run: |
-          git reset --hard HEAD~1
+      # - name: Revert Changes
+      #   run: |
+      #     git reset --hard HEAD~1
       
-      - name: Push Back the Repository
-        uses: ad-m/github-push-action@master
-        with:
-          branch: blog
-          force: true
+      # - name: Push Back the Repository
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     branch: blog
+      #     force: true
