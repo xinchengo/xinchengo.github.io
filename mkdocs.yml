@@ -1,5 +1,6 @@
 site_name: xinchengo 的博客
 repo_url: https://github.com/xinchengo/xinchengo.github.io/
+edit_uri: edit/blog/docs/
 
 theme:
     name: 'material'
