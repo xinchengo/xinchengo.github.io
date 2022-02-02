@@ -20,6 +20,7 @@ jobs:
           mv ./tutorial/* ./docs/题解/
           mkdir ./docs/笔记/
           mv ./note/* ./docs/笔记/
+          touch ./docs/CNAME
           cat lixinchen.cn > ./docs/CNAME
 
       - name: Commit the Repository
