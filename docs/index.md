@@ -1,5 +1,14 @@
 # 简介
 
+>  每一颗冬天的种子，都有一个关于春天的梦想。
+
+>  OI 是一个奇妙的世界，梦想在这里生根发芽，像一颗颗蒲公英，在春风的吹拂下，拥抱着蓝天，去到很远很远的地方。这里总是充满着不期而至的温暖和生生不息的希望。
+## 链接
+
+- Online Judge: [洛谷](https://www.luogu.com.cn/)，[Codeforces](https://codeforces.com/)，[LibreOJ](https://loj.ac/)。
+- 资源网站：[OI Wiki](https://oi-wiki.org/)，[MY OI](https://www.xht37.com/my-oi/)。
+- 个人资源：[博客仓库](https://github.com/xinchengo/code)，[代码仓库](https://github.com/xinchengo/code)
+- 
 ## 练习数据
 ![我的练习情况](https://luogu.wao3.cn/api/practice?id=295455&card_width=800)
 # OI生涯大事记
