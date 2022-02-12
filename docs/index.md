@@ -7,8 +7,8 @@
 
 - Online Judge: [洛谷](https://www.luogu.com.cn/)，[Codeforces](https://codeforces.com/)，[LibreOJ](https://loj.ac/)。
 - 资源网站：[OI Wiki](https://oi-wiki.org/)，[MY OI](https://www.xht37.com/my-oi/)。
-- 个人资源：[博客仓库](https://github.com/xinchengo/code)，[代码仓库](https://github.com/xinchengo/code)
-- 
+- 个人资源：[博客仓库](https://github.com/xinchengo/xinchengo.github.io)，[代码仓库](https://github.com/xinchengo/code)
+
 ## 练习数据
 ![我的练习情况](https://luogu.wao3.cn/api/practice?id=295455&card_width=800)
 # OI生涯大事记
