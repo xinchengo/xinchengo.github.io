@@ -11,7 +11,7 @@
           "state": {
             "file": "笔记/snippets.md",
             "mode": "source",
-            "source": false
+            "source": true
           }
         }
       }
