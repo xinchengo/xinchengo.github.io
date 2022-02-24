@@ -9,8 +9,9 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "笔记/snippets.md",
-            "mode": "source"
+            "file": "笔记/popcount.md",
+            "mode": "source",
+            "source": true
           }
         }
       }
@@ -68,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "笔记/snippets.md",
+                "file": "笔记/popcount.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,10 +89,11 @@
   },
   "active": "33ddad0a1e8e2a7c",
   "lastOpenFiles": [
-    "笔记/snippets.md",
+    "笔记/popcount.md",
+    "index.md",
     "笔记/index.md",
-    "笔记/popcount-order.md",
     "题解/index.md",
-    "index.md"
+    "笔记/snippets.md",
+    "笔记/popcount-order.md"
   ]
 }
