@@ -9,7 +9,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.2">
     
     
       
@@ -29,7 +29,7 @@
       
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
@@ -407,10 +407,20 @@
 
 
 <h1 id="2-sat">2-SAT 问题<a class="headerlink" href="#2-sat" title="Permanent link">&para;</a></h1>
-<details class="note" open="open">
-<summary><a href="https://www.luogu.com.cn/problem/P3825">P3825 [NOI2017] 游戏</a></summary>
-<p>题意概要：小 L 有 A、B、C 三辆赛车，n 场游戏中有 d 场 <span class="arithmatex">\((d \leq 8, n \leq 5 \times 10^4)\)</span> 不限制赛车，其余的场次会禁止某一辆赛车。还有 m 条 <span class="arithmatex">\((m \leq 10^4)\)</span> 规则限制如果在场次 <span class="arithmatex">\(i\)</span> 使用某一赛车，在场次 <span class="arithmatex">\(j\)</span> 必须使用某种赛车。判断是否有解，若有解，输出一种方案。</p>
-</details>
+<h1 id="_1">模板题<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="https://www.luogu.com.cn/problem/P4782">P4782 【模板】2-SAT 问题</a></li>
+<li><a href="https://www.luogu.com.cn/problem/P5782">P5782 [POI2001] 和平委员会 </a></li>
+<li><a href="https://www.luogu.com.cn/problem/P4171">P4171 [JSOI2010] 满汉全席</a></li>
+</ul>
+<h2 id="p3825-noi2017">P3825 [NOI2017] 游戏<a class="headerlink" href="#p3825-noi2017" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.luogu.com.cn/problem/P3825">题目链接</a>"</p>
+<p>大意：小 L 有 A、B、C 三辆赛车，n 场游戏中有 d 场 <span class="arithmatex">\((d \leq 8, n \leq 5 \times 10^4)\)</span> 不限制赛车，其余的场次会禁止某一辆赛车。还有 m 条 <span class="arithmatex">\((m \leq 10^4)\)</span> 规则限制如果在场次 <span class="arithmatex">\(i\)</span> 使用某一赛车，在场次 <span class="arithmatex">\(j\)</span> 必须使用某种赛车。判断是否有解，若有解，输出一种方案。</p>
+<p>解法：考虑到绝大多数场次只能使用两车之一，枚举 <span class="arithmatex">\(d\)</span> 场不限赛车的场次限制 A 或限制 B，将原问题转化为 2-SAT 问题， 时间复杂度 <span class="arithmatex">\(O((n+m)\cdot 2^d)\)</span>。</p>
+<h2 id="p3209-hnoi2010">P3209 [HNOI2010] 平面图判定<a class="headerlink" href="#p3209-hnoi2010" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.luogu.com.cn/problem/P3209">题目链接</a></p>
+<p>大意：T 组数据 <span class="arithmatex">\((T\leq 300)\)</span>，给你一个存在哈密顿回路的图和其哈密顿回路，判断该图是否为平面图。<span class="arithmatex">\(N\leq 200\)</span> 。</p>
+<p>解法：为了简化题目，我们可以用平面图定理 <span class="arithmatex">\(m \leq 3\times n - 6\)</span>，初步排除不符合要求的情况。一条边可以在环外，也可以在环内，我们可以对边的矛盾建立关系，从而转化为 2-SAT 问题求解。</p>
 
   <hr>
 <div class="md-source-file">
@@ -492,7 +502,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.8aa65030.min.js"></script>
+      <script src="../../assets/javascripts/bundle.9f3ca3d1.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
