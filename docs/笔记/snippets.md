@@ -31,3 +31,55 @@ int query(int l, int r)
 	return max(s[l][qlim], s[r-(1<<qlim)+1][qlim]);
 }
 ```
+
+## 图论
+
+### 链式前向星存图
+
+```cpp
+int head[MAXN], nxt[MAXM], to[MAXM], cnt;
+void add(int u, int v)
+{
+	nxt[++cnt]=head[u];
+	head[u]=cnt;
+	to[cnt]=v;
+}
+```
+
+从 1 开始，预处理为 0；从 0 开始，预处理为 -1。
+
+### 图的连通性
+
+缩点
+
+```cpp
+int dfn[MAXN], low[MAXN], dcnt;
+int s[MAXN], ins[MAXN], scnt;
+int belong[MAXN], bs[MAXN], bcnt;
+void dfs(int u)
+{
+	dfn[u] = low[u] = ++dcnt;
+	s[++scnt] = u;
+	ins[u] = 1;
+	for(int i=head[u];i;i=nxt[i])
+	{
+		int v=to[i];
+		if(!dfn[v])
+		{
+			dfs(v, u);
+			low[u] = min(low[u], low[v]);
+		}
+		if(ins[v])
+			low[u] = min(low[u], dfn[v]);
+	}
+	if(dfn[u] == low[u])
+	{
+		bcnt++;
+		while(s[scnt] != u)
+			ins[s[scnt]] = 0, bs[bcnt]++, belong[s[scnt--]]=bcnt;
+		ins[s[scnt]] = 0, bs[bcnt]++, belong[s[scnt--]]=bcnt;
+	}
+}
+```
+
+不建议写 `if(dfn[v] < dfn[u] && v != fa)`，因为只有当图**连通**时才正确。

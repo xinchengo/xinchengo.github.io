@@ -13,7 +13,7 @@
 
 ### 算法
 
-- Tarjan：强连通分量 $=$ 双连通分量。链式前向星存图。参数有 `cur`，`fa`,变量基本的有 `dfn`，`low`，`cnt`，有时要加 `s`，`scnt`，`belong`，`bcnt`。注意写 `if(dfn[v] < dfn[u] && v != fa)`。
+- Tarjan：强连通分量 $=$ 双连通分量。链式前向星存图。注意只有当图**连通**时 `if(dfn[v] < dfn[u] && v != fa)`  才是正确的，一般建议写  `if(ins[v])`。
 - 最短路：SPFA 用 `queue`，加 `vis`，Dijkstra 用 `priority_queue`，不加 `vis`。
 - 倍增求 LCA：数组 `log` 一维要开 $\log(n)+1$。
 
