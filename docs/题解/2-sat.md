@@ -5,7 +5,7 @@
 - [P4171 \[JSOI2010\] 满汉全席](https://www.luogu.com.cn/problem/P4171)
 
 ## P3825 \[NOI2017\] 游戏
-[题目链接](https://www.luogu.com.cn/problem/P3825)"
+[题目链接](https://www.luogu.com.cn/problem/P3825)
 
 大意：小 L 有 A、B、C 三辆赛车，n 场游戏中有 d 场 $(d \leq 8, n \leq 5 \times 10^4)$ 不限制赛车，其余的场次会禁止某一辆赛车。还有 m 条 $(m \leq 10^4)$ 规则限制如果在场次 $i$ 使用某一赛车，在场次 $j$ 必须使用某种赛车。判断是否有解，若有解，输出一种方案。
 
