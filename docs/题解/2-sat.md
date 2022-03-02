@@ -1,5 +1,5 @@
 # 2-SAT 问题
-# 模板题
+## 模板题
 - [P4782 【模板】2-SAT 问题](https://www.luogu.com.cn/problem/P4782)
 - [P5782 \[POI2001\] 和平委员会 ](https://www.luogu.com.cn/problem/P5782)
 - [P4171 \[JSOI2010\] 满汉全席](https://www.luogu.com.cn/problem/P4171)
