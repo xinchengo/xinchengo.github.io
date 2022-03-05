@@ -3,5 +3,6 @@
   "livePreview": false,
   "strictLineBreaks": true,
   "promptDelete": false,
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "attachmentFolderPath": "_static"
 }
