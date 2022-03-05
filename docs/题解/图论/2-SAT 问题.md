@@ -4,6 +4,20 @@
 - [P5782 \[POI2001\] 和平委员会 ](https://www.luogu.com.cn/problem/P5782)
 - [P4171 \[JSOI2010\] 满汉全席](https://www.luogu.com.cn/problem/P4171)
 
+??? note "参考代码"
+	??? note "P4782"
+		```cpp linenums="1"
+		--8<-- "code/P4782.cpp"
+		```
+	??? note "P5782"
+		```cpp linenums="1"
+		--8<-- "code/P5782.cpp"
+		```
+	??? note "P4171"
+		```cpp linenums="1"
+		--8<-- "code/P4171.cpp"
+		```
+
 ## P3825 \[NOI2017\] 游戏
 [题目链接](https://www.luogu.com.cn/problem/P3825)
 
@@ -11,9 +25,19 @@
 
 解法：考虑到绝大多数场次只能使用两车之一，枚举 $d$ 场不限赛车的场次限制 A 或限制 B，将原问题转化为 2-SAT 问题， 时间复杂度 $O((n+m)\cdot 2^d)$。
 
+??? note "参考代码"
+	```cpp linenums="1"
+	--8<-- "code/P3825.cpp"
+	```
+
 ## P3209 \[HNOI2010\] 平面图判定
 [题目链接](https://www.luogu.com.cn/problem/P3209)
 
 大意：T 组数据 $(T\leq 300)$，给你一个存在哈密顿回路的图和其哈密顿回路，判断该图是否为平面图。$N\leq 200$ 。
 
 解法：为了简化题目，我们可以用平面图定理 $m \leq 3\times n - 6$，初步排除不符合要求的情况。一条边可以在环外，也可以在环内，我们可以对边的矛盾建立关系，从而转化为 2-SAT 问题求解。
+
+??? note "参考代码"
+	```cpp linenums="1"
+	--8<-- "code/P3209.cpp"
+	```

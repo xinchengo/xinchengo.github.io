@@ -5,32 +5,17 @@ edit_uri: edit/blog/docs/
 theme:
   name: "material"
   language: zh
-
-  palette:
-    # Light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: pink
-      accent: indigo
-      toggle:
-        icon: material/toggle-switch-off-outline
-        name: 切换至深色模式
-
-    # Dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: pink
-      accent: indigo
-      toggle:
-        icon: material/toggle-switch
-        name: 切换至浅色模式
+  features:
+    - navigation.tabs
+    - navigation.sections
 
 # Extensions
 markdown_extensions:
+  - smarty
   - footnotes
   - attr_list
   - pymdownx.highlight:
-      anchor_linenums: true
+      linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
@@ -58,6 +43,9 @@ markdown_extensions:
 extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css
 
 plugins:
   - search:
