@@ -53,6 +53,8 @@ plugins:
   - roamlinks
   - git-revision-date-localized:
       enable_creation_date: true
+  - literate-nav:
+      nav_file: summary.md
 
 extra:
   social:

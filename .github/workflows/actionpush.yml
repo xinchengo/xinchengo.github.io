@@ -27,4 +27,5 @@ jobs:
           pip install mkdocs-material
           pip install mkdocs-roamlinks-plugin
           pip install mkdocs-git-revision-date-localized-plugin
+          pip install mkdocs-literate-nav
           mkdocs gh-deploy --force

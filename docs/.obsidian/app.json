@@ -4,5 +4,5 @@
   "strictLineBreaks": true,
   "promptDelete": false,
   "alwaysUpdateLinks": true,
-  "attachmentFolderPath": "_static"
+  "attachmentFolderPath": "images"
 }
