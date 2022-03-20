@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "solutions/maths/bit.md",
+            "file": "solutions/index.md",
             "mode": "source",
             "source": true
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "solutions/maths/bit.md",
+                "file": "solutions/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,15 +89,15 @@
   },
   "active": "33ddad0a1e8e2a7c",
   "lastOpenFiles": [
-    "solutions/maths/bit.md",
     "solutions/index.md",
-    "solutions/competitions/thupc-2022-pre.md",
+    "solutions/graph/count-on-graphs.md",
     "solutions/graph/2-sat.md",
-    "solutions/graph/dfz.md",
+    "solutions/graph/dsu-on-tree.md",
     "notes/snippets.md",
-    "solutions/dp/probability.md",
-    "notes/blogs/hamming.md",
-    "如下.md",
-    "index.md"
+    "solutions/maths/bit.md",
+    "notes/index.md",
+    "index.md",
+    "solutions/graph/dfz.md",
+    "solutions/dp/probability.md"
   ]
 }
