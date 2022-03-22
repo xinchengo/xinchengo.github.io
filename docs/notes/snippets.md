@@ -106,3 +106,26 @@ void dfs(int u)
 ```
 
 不建议写 `if(dfn[v] < dfn[u] && v != fa)`，因为只有当图**连通**时才正确。
+
+### 重链剖分
+
+树上启发式合并的预处理
+
+```cpp
+void predfs(int u, int fa)
+{
+    dep[u] = dep[fa] + 1;
+    siz[u] = 1;
+    for (int i = head[u]; i; i = nxt[i])
+    {
+        int v = to[i];
+        if (v != fa)
+        {
+            predfs(v, u);
+            siz[u] += siz[v];
+            if (!heavy[u] || siz[heavy[u]] < siz[v])
+                heavy[u] = v;
+        }
+    }
+}
+```

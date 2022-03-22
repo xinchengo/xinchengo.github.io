@@ -1,6 +1,7 @@
 - [简介](index.md)
 - 笔记
 	- notes/*.md
+	- [专题](notes/topics/)
 	- [杂文](notes/blogs/)
 - 题解
 	- solutions/*.md
