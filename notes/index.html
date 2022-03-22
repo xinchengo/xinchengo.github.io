@@ -418,12 +418,75 @@
       
       
         <label class="md-nav__link" for="__nav_2_3">
+          专题
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="专题" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          专题
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="topics/count-on-graphs/" class="md-nav__link">
+        图上统计专题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="topics/hld/" class="md-nav__link">
+        树链剖分
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
           杂文
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="杂文" data-md-level="2">
-        <label class="md-nav__title" for="__nav_2_3">
+        <label class="md-nav__title" for="__nav_2_4">
           <span class="md-nav__icon md-icon"></span>
           杂文
         </label>
@@ -672,20 +735,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../solutions/graph/count-on-graphs/" class="md-nav__link">
-        图上统计专题
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../solutions/graph/dfz/" class="md-nav__link">
         点分治
       </a>
@@ -906,6 +955,7 @@
 <li>数组：尽量开最大使用<span class="arithmatex">\(+ 7\)</span>。</li>
 <li>二维数组：注意必须要加 2 个括号，只加一个括号返回的是指针，恒大于0，且不报错。</li>
 <li>局部变量要初始化。</li>
+<li>变量不要重名，避免使用如 <code>cnt</code> 等可能引起混淆的变量名。</li>
 <li>memset 尽量只初始化 <span class="arithmatex">\(0\)</span> 和 <span class="arithmatex">\(-1\)</span>。</li>
 <li>STL：无关紧要的少用（如存图，<code>stack</code>）。</li>
 </ul>
@@ -927,7 +977,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 20, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 22, 2022</span>
       
         <br>
         创建日期:
