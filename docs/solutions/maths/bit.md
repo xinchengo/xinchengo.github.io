@@ -40,4 +40,21 @@
 	--8<-- "code/CF1491D.cpp"
 	```
 
+## CF627A XOR Equation
+[题目链接](https://www.luogu.com.cn/problem/CF627A)
 
+大意：两个整数 a,b 满足 $a+b=s$，$a\oplus b=t$，求满足条件的正整数 a,b 数目。
+
+解法：异或的本质是不进位的加法，满足 $a\oplus b+2\times a\&b=a+b$，所以 $a\&b=\frac{1}{2}(s-t)$，二进制枚举每一位统计即可。
+
+??? note "参考代码"
+	```cpp linenums="1"
+	--8<-- "code/CF627A.cpp"
+	```
+
+<!--## P4060 \[Code+#1\]可做题
+[题目链接](https://www.luogu.com.cn/problem/P4060)
+
+大意：给定一个长度为 n $(1\leq n\leq 10^9)$，有 m $(1\leq m\leq 10^5)$ 个元素已知的序列。求序列异或前缀和的前缀和的最小值。
+
+解法：考虑位运算每一位互不影响，对每一位分别计算。-->

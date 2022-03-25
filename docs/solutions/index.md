@@ -6,6 +6,6 @@
 
 ## 待完善
 - [ ] graph/2-sat
-- [ ] maths/bit
+- [x] maths/bit
 - [ ] graph/count-on-graphs
-- [ ] graph/dsu-on-tree
+- [x] graph/dsu-on-tree
