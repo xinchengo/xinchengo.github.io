@@ -1,6 +1,5 @@
 # 题解大纲
 ## 待补
-- [ ] competitions/thupc-2022-pre
 - [ ] graph/dfz
 - [ ] dp/probability
 
