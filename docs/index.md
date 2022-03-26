@@ -4,8 +4,6 @@
 
 > OI 是一个奇妙的世界，梦想在这里生根发芽，像一颗颗蒲公英，在春风的吹拂下，拥抱着蓝天，去到很远很远的地方。这里总是充满着不期而至的温暖和生生不息的希望。
 
-关于加密信息，[点此查看](./_static/message.html)
-
 ### 链接
 
 - Online Judge: [洛谷](https://www.luogu.com.cn/)，[Codeforces](https://codeforces.com/)，[LibreOJ](https://loj.ac/)。

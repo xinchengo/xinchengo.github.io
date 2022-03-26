@@ -1,6 +1,7 @@
 site_name: xinchengo 的博客
 repo_url: https://github.com/xinchengo/xinchengo.github.io/
 edit_uri: edit/blog/docs/
+copyright: Copyright &copy; 2021 - 2022 xinchengo
 
 theme:
   name: "material"
@@ -41,11 +42,12 @@ markdown_extensions:
   - tables
 
 extra_javascript:
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js
+  - _static/extra.js
 
 extra_css:
-  - stylesheets/extra.css
+  - _static/extra.css
+  - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css
 
 plugins:
   - search:
