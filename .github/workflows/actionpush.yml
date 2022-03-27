@@ -46,7 +46,7 @@ jobs:
 
       - name: Preparation
         run: |
-          printf "from bs4 import BeautifulSoup as bs\nfilename = './sitemap.xml'\nf = open(filename)\nfile = f.read()\nsoup = bs(file, "html.parser")\nlinks = soup.find_all('loc')\nwith open('./urls.txt', 'w') as f1:\n    for link in links:\n        f1.write(link.text + '\\\n')\n" > script.py
+          printf "from bs4 import BeautifulSoup as bs\nfilename = './sitemap.xml'\nf = open(filename)\nfile = f.read()\nsoup = bs(file, \"html.parser\")\nlinks = soup.find_all('loc')\nwith open('./urls.txt', 'w') as f1:\n    for link in links:\n        f1.write(link.text + '\\\n')\n" > script.py
           pip install bs4
 
       - name: Generate Sitemap
