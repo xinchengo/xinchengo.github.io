@@ -3,8 +3,11 @@ on:
   push:
     branches:
       - blog
+  schedule:
+    - cron: '0 0,12 * * *'
 jobs:
   generate:
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the Blog Repository
@@ -12,7 +15,7 @@ jobs:
         with:
           ref: blog
           fetch-depth: 0
-      
+
       - name: Set Up Python
         uses: actions/setup-python@v2
         with:
@@ -52,9 +55,9 @@ jobs:
       - name: Generate Sitemap
         run: |
           python ./script.py
-      
+
       - name: Push to baidu
         env:
           URL: ${{ secrets.BAIDU_PUSH_URL }}
-        run : |
+        run: |
           curl -H 'Content-Type:text/plain' --data-binary @urls.txt "$URL"
