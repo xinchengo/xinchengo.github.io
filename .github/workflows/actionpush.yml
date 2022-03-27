@@ -30,7 +30,7 @@ jobs:
           pip install mkdocs-literate-nav
           mkdocs gh-deploy --force
   baidu-push:
-    needs: jobs
+    needs: generate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the Pages Repository
