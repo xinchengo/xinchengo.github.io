@@ -7,6 +7,7 @@ copyright: Copyright &copy; 2021 - 2022 xinchengo
 theme:
   name: "material"
   language: zh
+  custom_dir: overrides
   features:
     - navigation.tabs
     - navigation.sections
@@ -63,3 +64,7 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/xinchengo/
+    - icon: fontawesome/brands/qq
+      link: http://wpa.qq.com/msgrd?v=3&uin=2773315798&site=qq&menu=yes
+    - icon: luogu
+      link: https://www.luogu.com.cn/user/295455
