@@ -12,7 +12,8 @@
 
 ### 练习数据
 
-![我的练习情况](https://luogu.wao3.cn/api/practice?id=295455&card_width=800)
+![我的练习情况](https://luogu.wao3.cn/api/practice?id=295455&card_width=800#only-light)
+![我的练习情况](https://luogu.wao3.cn/api/practice?id=295455&dark_mode=true&card_width=800#only-dark)
 
 ## OI 生涯大事记
 

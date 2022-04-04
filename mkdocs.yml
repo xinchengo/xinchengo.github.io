@@ -11,6 +11,21 @@ theme:
   features:
     - navigation.tabs
     - navigation.sections
+  palette: 
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: 切换至深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/toggle-switch
+        name: 切换至浅色模式
 
 # Extensions
 markdown_extensions:
@@ -48,8 +63,8 @@ extra_javascript:
   - _static/extra.js
 
 extra_css:
-  - _static/extra.css
   - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css
+  - _static/extra.css
 
 plugins:
   - search:

@@ -5,6 +5,6 @@
 
 ??? note "参考代码"
 	??? note "P3806"
-		```cpp linenums="1"
+		```cpp
 		--8<-- "code/P3806.cpp"
 		```
