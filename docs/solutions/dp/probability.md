@@ -13,7 +13,7 @@
 	--8<-- "code/P1654.cpp"
 	```
 
-## P2059 \[JLOI2013\]卡牌游戏
+<!--## P2059 \[JLOI2013\]卡牌游戏
 
 [题目链接](https://www.luogu.com.cn/problem/P2059)
 
@@ -29,4 +29,4 @@ f_{i-1,j-(a_k-1)\bmod i - 1}&, (a_k-1) \bmod{i} + 1 < j \\
 f_{i-1,i + j-(a_k-1)\bmod i - 1}&, (a_k-1)\bmod{i} + 1 > j
 \end{aligned}
 \right.
-$$
+$$-->

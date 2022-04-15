@@ -13,26 +13,65 @@ int s[MAXN][MAXLOG];
 预处理（此处 `max` 函数可以是任何满足可重复贡献性的函数，如 `min` ，`gcd` ）：
 
 ```cpp
-slim = (int)(log((double)n)/log(2.0));
-for(int i=1;i<=n;i++)
-	s[i][0] = a[i];
-for(int j=1;j<=slim;j++)
-	for(int i=1;i<=n;i++)
-		if(i+(1<<(j-1))<=n)
-			s[i][j] = max(s[i][j-1],s[i+(1<<(j-1))][j-1]);
+slim = (int)(log((double)n) / log(2.0));
+for (int i = 1; i <= n; i++)
+    s[i][0] = a[i];
+for (int j = 1; j <= slim; j++)
+    for (int i = 1; i <= n; i++)
+        if (i + (1 << (j - 1)) <= n)
+            s[i][j] = max(s[i][j - 1], s[i + (1 << (j - 1))][j - 1]);
 ```
-
 查询（有关 `max` 函数同上）：
 
 ```cpp
 int query(int l, int r)
 {
-	int qlim = (int)(log((double)(r-l+1))/log(2.0));
-	return max(s[l][qlim], s[r-(1<<qlim)+1][qlim]);
+    int qlim = (int)(log((double)(r - l + 1)) / log(2.0));
+    return max(s[l][qlim], s[r - (1 << qlim) + 1][qlim]);
 }
 ```
 
+### 树状数组
+
+基本操作：
+```cpp
+int c[maxn];
+void add(int x, int k)
+{
+    for (; x <= n; x += x & -x)
+        c[x] += k;
+}
+int ask(int x)
+{
+    int k = 0;
+    for (; x; x -= x & -x)
+        k += c[x];
+    return k;
+}
+```
+
+倍增（以 `kth` 为例）：
+```cpp
+int kth(int x)
+{
+    int p = 0;
+    for (int k = maxlog; k >= 0; k--)
+    {
+        p += (1 << k);
+        if (p > n || c[p] >= x)
+            p -= (1 << k);
+        else
+            x -= c[p];
+    }
+    return p + 1;
+}
+```
+
+!!! note "解释"
+	倍增的思想就是如果超出就回退，在上述示例的代码中，位置如果超出范围或者大小太大就执行回退。
+
 ## 图论
+
 ### 树的重心
 
 ```cpp
