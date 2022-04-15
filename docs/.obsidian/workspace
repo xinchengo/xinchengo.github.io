@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "solutions/graph/dfz.md",
+            "file": "notes/snippets.md",
             "mode": "source",
             "source": true
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "solutions/graph/dfz.md",
+                "file": "notes/snippets.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,15 +89,15 @@
   },
   "active": "33ddad0a1e8e2a7c",
   "lastOpenFiles": [
+    "notes/snippets.md",
+    "notes/index.md",
+    "notes/topics/hld.md",
     "solutions/graph/dfz.md",
     "solutions/graph/dsu-on-tree.md",
     "solutions/maths/bit.md",
     "solutions/competitions/thupc-2022-pre.md",
     "notes/topics/count-on-graphs.md",
-    "notes/topics/hld.md",
     "solutions/dp/probability.md",
-    "solutions/graph/2-sat.md",
-    "notes/index.md",
-    "notes/blogs/hamming.md"
+    "solutions/graph/2-sat.md"
   ]
 }
