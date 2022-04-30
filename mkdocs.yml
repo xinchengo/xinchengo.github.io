@@ -60,10 +60,12 @@ markdown_extensions:
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js
   - _static/extra.js
 
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css
+  - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.css
   - _static/extra.css
 
 plugins:

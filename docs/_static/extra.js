@@ -1,3 +1,4 @@
+// Katex
 (function () {
   'use strict';
 
