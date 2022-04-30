@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://lixinchen.cn/solutions/dp/">
+        <link rel="canonical" href="https://lixinchen.cn/notes/maths/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
     
     
       
-        <title>动态规划 - xinchengo 的博客</title>
+        <title>数学知识 - xinchengo 的博客</title>
       
     
     
@@ -70,6 +70,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              动态规划
+              数学知识
             
           </span>
         </div>
@@ -244,14 +249,16 @@
 
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
@@ -274,7 +281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../notes/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         笔记大纲
       </a>
     </li>
@@ -288,7 +295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../notes/snippets/" class="md-nav__link">
+      <a href="../snippets/" class="md-nav__link">
         代码模板
       </a>
     </li>
@@ -300,11 +307,93 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../notes/maths/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          数学知识
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         数学知识
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+    
+    
+    
+    
+    
+    
+    <label class="md-nav__title" for="__toc">
+        <span class="md-nav__icon md-icon"></span>
+        目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+        
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    同余
+  </a>
+  
+    <nav class="md-nav" aria-label="同余">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    扩展欧几里得法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    乘法逆元
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lucas" class="md-nav__link">
+    Lucas 定理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    中国剩余定理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+    </ul>
+    <br />
+    <div class="mdui-chip" onClick="expandElements(true)">
+        <span class="mdui-chip-title">展开所有</span>
+    </div>
+    <div class="mdui-chip" onClick="expandElements(false)">
+        <span class="mdui-chip-title">折叠所有</span>
+    </div>
+    
+</nav>
+      
     </li>
   
 
@@ -342,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../notes/topics/count-on-graphs/" class="md-nav__link">
+      <a href="../topics/count-on-graphs/" class="md-nav__link">
         图上统计专题
       </a>
     </li>
@@ -356,7 +445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../notes/topics/hld/" class="md-nav__link">
+      <a href="../topics/hld/" class="md-nav__link">
         树链剖分
       </a>
     </li>
@@ -403,7 +492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../notes/blogs/hamming/" class="md-nav__link">
+      <a href="../blogs/hamming/" class="md-nav__link">
         生成汉明重量顺序的排列
       </a>
     </li>
@@ -430,16 +519,14 @@
 
   
   
-    
-  
   
     
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
       
@@ -462,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../solutions/" class="md-nav__link">
         题解大纲
       </a>
     </li>
@@ -476,7 +563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../competitions/" class="md-nav__link">
+      <a href="../../solutions/competitions/" class="md-nav__link">
         比赛
       </a>
     </li>
@@ -488,19 +575,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../solutions/dp/" class="md-nav__link">
         动态规划
       </a>
-      
     </li>
   
 
@@ -512,7 +591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maths/" class="md-nav__link">
+      <a href="../../solutions/maths/" class="md-nav__link">
         数学
       </a>
     </li>
@@ -526,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../graph/" class="md-nav__link">
+      <a href="../../solutions/graph/" class="md-nav__link">
         图论
       </a>
     </li>
@@ -558,6 +637,64 @@
     
     
     
+    
+    
+    <label class="md-nav__title" for="__toc">
+        <span class="md-nav__icon md-icon"></span>
+        目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+        
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    同余
+  </a>
+  
+    <nav class="md-nav" aria-label="同余">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    扩展欧几里得法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    乘法逆元
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lucas" class="md-nav__link">
+    Lucas 定理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    中国剩余定理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+    </ul>
+    <br />
+    <div class="mdui-chip" onClick="expandElements(true)">
+        <span class="mdui-chip-title">展开所有</span>
+    </div>
+    <div class="mdui-chip" onClick="expandElements(false)">
+        <span class="mdui-chip-title">折叠所有</span>
+    </div>
+    
 </nav>
                   </div>
                 </div>
@@ -568,15 +705,134 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/xinchengo/xinchengo.github.io/edit/blog/docs/solutions/dp.md" title="编辑此页" class="md-content__button md-icon">
+  <a href="https://github.com/xinchengo/xinchengo.github.io/edit/blog/docs/notes/maths.md" title="编辑此页" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-  <h1>动态规划</h1>
-
-
+<h1 id="_1">数学知识<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">同余<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">扩展欧几里得法<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>扩展欧几里得算法（Extended Euclidean algorithm, EXGCD），常用于求 <span class="arithmatex">\(ax+by=\gcd(a,b)\)</span> 的一组可行解。<sup id="fnref:note1"><a class="footnote-ref" href="#fn:note1">1</a></sup></p>
+<p>推导如下：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\because\ &amp;ax_1+by_1=gcd(a,b)\\
+&amp;bx_2+(a\bmod b)y_2=gcd(b,a\bmod b)\\
+\therefore\ &amp;ax_1+by_1=bx_2+(a\bmod b)y_2\\
+\textsf{又}\because\ &amp; a\bmod b=a-(\lfloor\frac{a}{b}\rfloor\times b)\\
+\therefore\ &amp;ax_1+by_1=bx_2+(a-(\lfloor\frac{a}{b}\rfloor\times b))y_2\\
+\textsf{即}\ &amp;ax_1+by_1=ay_2-b(x_2-\lfloor\frac{a}{b}\rfloor y_2)
+\end{aligned}
+\]</div>
+<p>故回溯过程为：<span class="arithmatex">\(x_1=y_2,y_1=x_2-\lfloor\frac{a}{b}\rfloor y_2\)</span>。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">exgcd</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="o">&amp;</span><span class="n">y</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">exgcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</td></tr></table>
+<h3 id="_4">乘法逆元<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>逆元的存在条件：a 与 p 互质。</li>
+<li>单个数的逆元求法：快速幂法（要求是质数）和扩展欧几里得法（不要求是质数）。</li>
+<li>逆元的线性递推：<code>inv[i]=(p-p/i)*inv[p%i]%p</code>。</li>
+<li>
+<p>阶乘逆元：</p>
+<ol>
+<li>求出 1~n 的阶乘；</li>
+<li>求出 n! 的逆元；</li>
+<li>由 i! 的逆元逆推出 (i-1)! 的逆元。</li>
+</ol>
+<p>1~n 的阶乘逆元可以反推出 1~n 的逆元。前缀积逆元可以反推出任意 n 个数的逆元。</p>
+</li>
+</ul>
+<p>以上两种方法的时间复杂度都是 O(n)，方法 1 更为简单，但方法 2 的理解更为直观。</p>
+<p>逆元的使用场景：<span class="arithmatex">\(C_n^m=\dfrac{n!}{m!\cdot(n-m)!}\)</span></p>
+<p>线性求 1~n 的逆元：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">inv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">inv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="n">p</span><span class="o">/</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">inv</span><span class="p">[</span><span class="n">p</span><span class="o">%</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+</td></tr></table>
+<p>求阶乘逆元和 1~n 的逆元：
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">pmod</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">pmod</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pmod</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="n">exgcd</span><span class="p">(</span><span class="n">pmod</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span><span class="w"></span>
+<span class="n">pinv</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="o">%</span><span class="n">p</span><span class="o">+</span><span class="n">p</span><span class="p">)</span><span class="o">%</span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">pinv</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="n">pinv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="n">inv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">inv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="o">*</span><span class="n">pmod</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">]</span><span class="o">*</span><span class="n">pinv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+</td></tr></table></p>
+<h3 id="lucas">Lucas 定理<a class="headerlink" href="#lucas" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+C_n^m=\prod_{i=0}^{k}{C_{n_i}^{m_i}}\bmod p
+\]</div>
+<p>在 OI 中常用的形式是</p>
+<div class="arithmatex">\[
+C_n^m=C_{n/p}^{m/p}\cdot C_{n\ \bmod\ p}^{m\ \bmod\ p}\bmod p
+\]</div>
+<p>两公式是等价的，OI 中的公式可化为</p>
+<div class="arithmatex">\[
+C_n^m=\left(\prod_{i=1}^{k}{C_{n_i}^{m_i}}\right)\cdot C_{n_0}^{m_0}\bmod p
+\]</div>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">Lucas</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">C</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="o">%</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Lucas</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">p</span><span class="p">,</span><span class="n">m</span><span class="o">/</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</td></tr></table>
+<p>该算法适用于 p 不大的情况。</p>
+<h3 id="_5">中国剩余定理<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>对于一个模线性方程组</p>
+<div class="arithmatex">\[
+\begin{cases}x\equiv a_1\;\;(mod\;\;m_1)\\x\equiv a_2\;\;(mod\;\;m_2)\\ \cdots \cdots\\x\equiv a_k\;\;(mod\;\;m_k)\\\end{cases}
+\]</div>
+<p>中国剩余定理的思想就是对于每个模数，构造一个满足该条件，并是其它所有模数的倍数的数字。它们的和显然符合要求。</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:note1">
+<p><a href="https://oi-wiki.org/math/number-theory/gcd/#_7">OI Wiki 中的有关描述</a>&#160;<a class="footnote-backref" href="#fnref:note1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
   <hr>
 <div class="md-source-file">
@@ -605,7 +861,7 @@
     <nav class="md-footer__inner md-grid" aria-label="页脚">
       
         
-        <a href="../competitions/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 比赛" rel="prev">
+        <a href="../snippets/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 代码模板" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -614,20 +870,20 @@
               <span class="md-footer__direction">
                 上一页
               </span>
-              比赛
+              代码模板
             </div>
           </div>
         </a>
       
       
         
-        <a href="../maths/" class="md-footer__link md-footer__link--next" aria-label="下一页: 数学" rel="next">
+        <a href="../topics/count-on-graphs/" class="md-footer__link md-footer__link--next" aria-label="下一页: 图上统计专题" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              数学
+              图上统计专题
             </div>
           </div>
           <div class="md-footer__button md-icon">

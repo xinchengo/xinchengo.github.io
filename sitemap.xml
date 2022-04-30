@@ -11,7 +11,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://lixinchen.cn/draft/math1.md/</loc>
+         <lastmod>2022-04-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://lixinchen.cn/notes/</loc>
+         <lastmod>2022-04-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://lixinchen.cn/notes/maths/</loc>
          <lastmod>2022-04-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
