@@ -9,7 +9,7 @@ theme:
   language: zh
   custom_dir: overrides
   features:
-    - navigation.tabs
+    #- navigation.tabs
     - navigation.sections
   palette: 
     - media: "(prefers-color-scheme: light)"
@@ -68,7 +68,7 @@ extra_css:
 
 plugins:
   - search:
-      lang: zh
+      lang: [en,jp]
   - roamlinks
   - git-revision-date-localized:
       enable_creation_date: true

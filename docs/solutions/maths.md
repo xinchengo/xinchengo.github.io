@@ -1,10 +1,11 @@
-# 位运算
-## 概念
+# 数学
+## 位运算
+### 概念
 - 基本概念：原码，反码，补码。**正数的三者相等**，负数的反码是原码的取反，补码是反码加 1。
 - 基本操作：`lowbit`, `getbit`, `revbit`, `setbit`。
 - 二进制枚举子集：`for(int t=x;t;t=x&(t-1))`。
 
-## P3048 \[USACO12FEB\]Cow IDs S
+### P3048 \[USACO12FEB\]Cow IDs S
 [题目链接](https://www.luogu.com.cn/problem/P3048)
 
 大意：给出汉明权重为 k $(1 \leq k \leq 10)$ 的第 n $(1\leq n\leq 10^7)$ 个二进制数。
@@ -16,7 +17,7 @@
 	--8<-- "code/P3048.cpp"
 	```
 
-## CF1508B Almost Sorted
+### CF1508B Almost Sorted
 [题目链接](https://www.luogu.com.cn/problem/CF1508B)
 
 大意：一个长度为 n 的“几乎有序”的排列 a 满足 $\forall i\in [1,n-1]\cap \mathbf{N}^* , a_{i+1}\geq a_{i}-1$，我们称其为“几乎有序的”。给定长度 n，k，求出第 k 个长度为 n 的“几乎有序”排列。
@@ -28,7 +29,7 @@
 	--8<-- "code/CF1508B.cpp"
 	```
 
-## CF1491D Zookeeper and The Infinite Zoo
+### CF1491D Zookeeper and The Infinite Zoo
 [题目链接](https://www.luogu.com.cn/problem/CF1491D)
 
 大意：若 $x\&y=y$，则 x 可以变成 x+y，问 u 是否可以经过若干次操作变为 v。$(1\leq u,v\leq 2^{30})$
@@ -40,7 +41,7 @@
 	--8<-- "code/CF1491D.cpp"
 	```
 
-## CF627A XOR Equation
+### CF627A XOR Equation
 [题目链接](https://www.luogu.com.cn/problem/CF627A)
 
 大意：两个整数 a,b 满足 $a+b=s$，$a\oplus b=t$，求满足条件的正整数 a,b 数目。

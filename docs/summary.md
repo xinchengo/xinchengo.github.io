@@ -5,8 +5,6 @@
 	- [杂文](notes/blogs/)
 - 题解
 	- solutions/*.md
-	- [动态规划](solutions/dp/)
-	- [数学](solutions/maths/)
-	- [图论](solutions/graph/)
-	- [比赛](solutions/competitions/)
-	- [其他](solutions/others/)
+	- [动态规划](solutions/dp.md)
+	- [数学](solutions/maths.md)
+	- [图论](solutions/graph.md)

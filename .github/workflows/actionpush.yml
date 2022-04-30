@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - blog
-  schedule:
-    - cron: '0 0,12 * * *'
+  # schedule:
+  #   - cron: '0 0,12 * * *'
 jobs:
   generate:
-    if: ${{ github.event_name == 'push' }}
+    # if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the Blog Repository
@@ -21,9 +21,9 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Clone the Code Repository
-        run: |
-          git clone https://github.com/xinchengo/code.git
+      # - name: Clone the Code Repository
+      #   run: |
+      #     git clone https://github.com/xinchengo/code.git
 
       - name: Generate Mkdocs
         run: |
@@ -32,32 +32,32 @@ jobs:
           pip install mkdocs-git-revision-date-localized-plugin
           pip install mkdocs-literate-nav
           mkdocs gh-deploy --force
-  baidu-push:
-    needs: generate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the Pages Repository
-        uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-          fetch-depth: 0
+  # baidu-push:
+  #   needs: generate
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout the Pages Repository
+  #       uses: actions/checkout@v2
+  #       with:
+  #         ref: gh-pages
+  #         fetch-depth: 0
 
-      - name: Set Up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
+  #     - name: Set Up Python
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.x
 
-      - name: Preparation
-        run: |
-          printf "from bs4 import BeautifulSoup as bs\nfilename = './sitemap.xml'\nf = open(filename)\nfile = f.read()\nsoup = bs(file, \"html.parser\")\nlinks = soup.find_all('loc')\nwith open('./urls.txt', 'w') as f1:\n    for link in links:\n        f1.write(link.text + '\\\n')\n" > script.py
-          pip install bs4
+  #     - name: Preparation
+  #       run: |
+  #         printf "from bs4 import BeautifulSoup as bs\nfilename = './sitemap.xml'\nf = open(filename)\nfile = f.read()\nsoup = bs(file, \"html.parser\")\nlinks = soup.find_all('loc')\nwith open('./urls.txt', 'w') as f1:\n    for link in links:\n        f1.write(link.text + '\\\n')\n" > script.py
+  #         pip install bs4
 
-      - name: Generate Sitemap
-        run: |
-          python ./script.py
+  #     - name: Generate Sitemap
+  #       run: |
+  #         python ./script.py
 
-      - name: Push to baidu
-        env:
-          URL: ${{ secrets.BAIDU_PUSH_URL }}
-        run: |
-          curl -H 'Content-Type:text/plain' --data-binary @urls.txt "$URL"
+  #     - name: Push to baidu
+  #       env:
+  #         URL: ${{ secrets.BAIDU_PUSH_URL }}
+  #       run: |
+  #         curl -H 'Content-Type:text/plain' --data-binary @urls.txt "$URL"
