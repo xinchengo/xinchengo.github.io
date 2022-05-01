@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://lixinchen.cn/notes/blogs/hamming/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.12">
     
     
       
@@ -19,10 +19,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c5ef100.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.27ad92d8.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9647289d.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
         
       
     
@@ -676,7 +676,7 @@
 <p>汉明重量是一串符号中非零符号的个数。对于一个二进制数，它的汉明重量就等于它 <span class="arithmatex">\(1\)</span> 的个数（即 <code>popcount</code>）。</p>
 <p>求一个数的汉明重量可以循环求解：我们将这个数不断地除以2，维护一个答案变量，在除的过程中根据最低位是否为 <span class="arithmatex">\(1\)</span> 更新答案。</p>
 <p>代码如下：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
@@ -684,7 +684,7 @@
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">// 求 x 的汉明重量</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// 求 x 的汉明重量</span>
 <span class="kt">int</span><span class="w"> </span><span class="nf">popcount</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -693,11 +693,10 @@
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cnt</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <p>求一个数的汉明重量还可以使用 <code>lowbit</code> 操作：我们将这个数不断地减去它的 <code>lowbit</code><sup id="fnref:note4"><a class="footnote-ref" href="#fn:note4">1</a></sup>，直到这个数变为 <span class="arithmatex">\(0\)</span>。</p>
 <p>代码如下：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
@@ -705,7 +704,7 @@
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="c1">// 求 x 的汉明重量</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// 求 x 的汉明重量</span>
 <span class="kt">int</span><span class="w"> </span><span class="nf">popcount</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -714,8 +713,7 @@
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cnt</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <h3 id="_3">构造汉明重量递增的排列<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>在 <a href="https://oi-wiki.org/dp/state">状压 DP</a> 中，按照 popcount 递增的顺序枚举有时可以避免重复枚举状态。这是构造汉明重量递增的排列的一大作用。</p>
 <p>下面我们来具体探究如何在 <span class="arithmatex">\(O(n)\)</span> 时间内构造汉明重量递增的排列。</p>
@@ -730,28 +728,26 @@
 </li>
 </ul>
 <p>这个过程可以用位运算优化：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">-</span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">-</span><span class="n">x</span><span class="p">);</span><span class="w"></span>
 <span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">((((</span><span class="n">t</span><span class="o">&amp;-</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">&amp;-</span><span class="n">x</span><span class="p">))</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span><span class="mi">-1</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <ul>
 <li>第一个步骤中，我们把数 <span class="arithmatex">\(x\)</span> 加上它的 <code>lowbit</code>，在二进制表示下，就相当于把 <span class="arithmatex">\(x\)</span> 最右边的连续一段 <span class="arithmatex">\(1\)</span> 换成它左边的一个 <span class="arithmatex">\(1\)</span>。如刚才提到的二进制数 <span class="arithmatex">\((10110)_2\)</span>，它在加上它的 <code>lowbit</code> 后是 <span class="arithmatex">\((11000)_2\)</span>。这其实得到了我们答案的前半部分。</li>
 <li>我们接下来要把答案后面的 <span class="arithmatex">\(1\)</span> 补齐，<span class="arithmatex">\(t\)</span>  的 <code>lowbit</code> 是 <span class="arithmatex">\(x\)</span> 最右边连续一段 <span class="arithmatex">\(1\)</span> 最左边的 <span class="arithmatex">\(1\)</span> 移动后的位置，而 <span class="arithmatex">\(x\)</span> 的 <code>lowbit</code> 则是 <span class="arithmatex">\(x\)</span> 最右边连续一段 <span class="arithmatex">\(1\)</span> 最左边的位置。还是以 <span class="arithmatex">\((10110)_2\)</span> 为例，<span class="arithmatex">\(t = (11000)_2\)</span>，<span class="arithmatex">\(\operatorname{lowbit}(t) = (01000)_2\)</span>，<span class="arithmatex">\(\operatorname{lowbit}(x)=(00010)_2\)</span>。</li>
 <li>接下来的除法操作是这种位运算中最难理解的部分，但也是最关键的部分。我们设<strong>原数</strong>最右边连续一段 <span class="arithmatex">\(1\)</span> 最高位的 <span class="arithmatex">\(1\)</span> 在第 <span class="arithmatex">\(r\)</span>  位上（位数从 <span class="arithmatex">\(0\)</span> 开始），最低位的 <span class="arithmatex">\(1\)</span> 在第 <span class="arithmatex">\(l\)</span> 位，<span class="arithmatex">\(t\)</span> 的 <code>lowbit</code> 等于 <code>1 &lt;&lt; (r+1)</code> ，<span class="arithmatex">\(x\)</span> 的 <code>lowbit</code> 等于 <code>1 &lt;&lt; l</code>， <code>((t&amp;-t)&gt;&gt;1)/(x&amp;-x)</code> 得到的，就是 <code>(1&lt;&lt;r)/(1&lt;&lt;l) = 1&lt;&lt;(r-l)</code> ，在二进制表示下就是 <span class="arithmatex">\(1\)</span> 后面跟上 <span class="arithmatex">\(r-l\)</span> 个零，零的个数正好等于连续 <span class="arithmatex">\(1\)</span> 的个数减去 <span class="arithmatex">\(1\)</span> 。举我们刚才的数为例，<span class="arithmatex">\(\frac{\operatorname{lowbit(t)\div 2}}{\operatorname{lowbit(x)}} = \frac{(00100)_2}{(00010)_2} = (00010)_2\)</span> 。把这个数减去 <span class="arithmatex">\(1\)</span> 得到的就是我们要补全的低位，或上原来的数就可以得到答案。</li>
 </ul>
 <p>所以枚举 <span class="arithmatex">\(0-n\)</span> 按汉明重量递增的排列的完整代码为：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">i</span><span class="p">)</span><span class="mi">-1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">i</span><span class="p">)</span><span class="mi">-1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">i</span><span class="p">)</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">+</span><span class="p">(</span><span class="n">x</span><span class="o">&amp;-</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="o">|</span><span class="p">((((</span><span class="n">t</span><span class="o">&amp;-</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">&amp;-</span><span class="n">x</span><span class="p">))</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span><span class="mi">-1</span><span class="p">))</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="c1">// 写下需要完成的操作</span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <p>其中要注意 <span class="arithmatex">\(0\)</span> 的特判，因为 <span class="arithmatex">\(0\)</span> 没有相同汉明重量的后继。</p>
 <div class="footnote">
 <hr />
@@ -884,7 +880,7 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.748e2769.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
       
