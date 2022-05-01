@@ -28,10 +28,13 @@ long long exgcd(long long a, long long b, long long &x, long long &y)
 		x = 1, y = 0;
 		return a;
 	}
-	exgcd(b, a%b, y, x);
+	long long u = exgcd(b, a%b, y, x);
 	y -= a / b * x;
+	return u;
 }
 ```
+
+注意 `(x%mod+mod)%mod` 才是最终得到的逆元。
 
 ### 乘法逆元
 
@@ -59,8 +62,8 @@ for(int i=2;i<=n;i++)
 
 求阶乘逆元和 1~n 的逆元：
 ```cpp
-pmod[1] = 1;
-for(int i=2;i<=n;i++)
+pmod[0] = 1;
+for(int i=1;i<=n;i++)
 	pmod[i] = 1LL * pmod[i-1] * i % p;
 exgcd(pmod[n], p, x, y);
 pinv[n] = (x%p+p)%p;
@@ -103,7 +106,24 @@ long long Lucas(long long n, long long m, long long p)
 对于一个模线性方程组
 
 $$
-\begin{cases}x\equiv a_1\;\;(mod\;\;m_1)\\x\equiv a_2\;\;(mod\;\;m_2)\\ \cdots \cdots\\x\equiv a_k\;\;(mod\;\;m_k)\\\end{cases}
+ \begin{cases} x &\equiv a_1 \pmod {n_1} \\ x &\equiv a_2 \pmod {n_2} \\ &\vdots \\ x &\equiv a_k \pmod {n_k} \\ \end{cases} 
 $$
 
 中国剩余定理的思想就是对于每个模数，构造一个满足该条件，并是其它所有模数的倍数的数字。它们的和显然符合要求。
+
+具体地，设所有模数的积为 $n$，则方程组的解为：$x=\sum_{i=1}^{k}a_im_im_i^{-1}$，其中 $m_i =\frac{n}{n_i}$，$m_i^{-1}$ 是 $\bmod{n}$ 意义下的。$m_im_i^{-1}\equiv1\pmod{n_i}$，所以原式显然符合条件。
+
+代码如下：
+
+```cpp
+prod = 1;
+for (int i = 1; i <= n; i++)
+	prod *= a[i];
+for (int i = 1; i <= n; i++)
+{
+	long long m = prod / a[i];
+	exgcd(m % a[i], a[i], x, y);
+	x = (x % a[i] + a[i]) % a[i];
+	ans = ((b[i] * m % prod) * x % prod + ans) % prod;
+}
+```
