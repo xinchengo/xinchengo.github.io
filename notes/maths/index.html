@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://lixinchen.cn/notes/maths/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.12">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.27ad92d8.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e411adfe.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.cc9b2e1e.min.css">
@@ -376,6 +376,39 @@
     中国剩余定理
   </a>
   
+    <nav class="md-nav" aria-label="中国剩余定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    扩展中国剩余定理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    多项式
+  </a>
+  
+    <nav class="md-nav" aria-label="多项式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    拉格朗日插值
+  </a>
+  
 </li>
         
       </ul>
@@ -679,6 +712,39 @@
     中国剩余定理
   </a>
   
+    <nav class="md-nav" aria-label="中国剩余定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    扩展中国剩余定理
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    多项式
+  </a>
+  
+    <nav class="md-nav" aria-label="多项式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    拉格朗日插值
+  </a>
+  
 </li>
         
       </ul>
@@ -750,6 +816,7 @@
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
 <p>注意 <code>(x%mod+mod)%mod</code> 才是最终得到的逆元。</p>
+<p>扩展欧几里得算法可以帮助我们解决<strong>线性同余方程</strong>的问题，因为 <span class="arithmatex">\(ax+by=\gcd(a,b)\)</span> 与 <span class="arithmatex">\(ax\equiv gcd(a,b) \pmod{b}\)</span> 在本质上是等价的。</p>
 <h3 id="_4">乘法逆元<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>逆元的存在条件：a 与 p 互质。</li>
@@ -795,6 +862,10 @@
 <span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">inv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="o">*</span><span class="n">pmod</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">]</span><span class="o">*</span><span class="n">pinv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">p</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></td></tr></table></div></p>
+<div class="admonition warning">
+<p class="admonition-title">注意</p>
+<p>预处理阶乘和阶乘逆元时，一定要设 <code>pinv[0]=1</code> 和 <code>pmod[0]=1</code>，不然求组合数时会出错。</p>
+</div>
 <h3 id="lucas">Lucas 定理<a class="headerlink" href="#lucas" title="Permanent link">&para;</a></h3>
 <div class="arithmatex">\[
 C_n^m=\prod_{i=0}^{k}{C_{n_i}^{m_i}}\bmod p
@@ -846,6 +917,68 @@ C_n^m=\left(\prod_{i=1}^{k}{C_{n_i}^{m_i}}\right)\cdot C_{n_0}^{m_0}\bmod p
 <span class="w">    </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">prod</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ans</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">prod</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div></td></tr></table></div>
+<h4 id="_6">扩展中国剩余定理<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>我们可以采取通过合并两个方程，合并整个方程组的思想。</p>
+<div class="arithmatex">\[
+\begin{cases}a \equiv r_1 \pmod {m_1} \\ a \equiv r_2 \pmod {m_2}\end{cases}
+\]</div>
+<p>我们的目标是构造一个 <span class="arithmatex">\(x\)</span>，满足 <span class="arithmatex">\(a\equiv x\pmod{\operatorname{lcm}(m1,m2)}\)</span>，构造方式如下：</p>
+<p><img alt="excrt-formula.jpg" src="/_static/images/excrt-formula.jpg" /></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">ra</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">rb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">exgcd</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ra</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">((</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">rb</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regulate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">rb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regulate</span><span class="p">(</span><span class="n">rb</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">mul</span><span class="p">(</span><span class="n">mul</span><span class="p">((</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">rb</span><span class="p">)</span><span class="o">/</span><span class="n">d</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">l</span><span class="p">),</span><span class="n">ra</span><span class="p">,</span><span class="n">l</span><span class="p">),</span><span class="w"> </span><span class="n">l</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">ra</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<h2 id="_7">多项式<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">拉格朗日插值<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>拉格朗日插值的思想是构造 <span class="arithmatex">\(n\)</span> 个通过其它点的零点和该点的函数，这些函数的和显然符合条件。</p>
+<div class="arithmatex">\[
+f(k)=\sum_{i=1}^{n} y_i\prod_{j\neq i }\frac{k-x_j}{x_i-x_j}
+\]</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// 此处的 regulate(x) 函数等价于 (x%p+p)%p</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">inv</span><span class="p">,</span><span class="w"> </span><span class="n">inv2</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">regulate</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="n">exgcd</span><span class="p">(</span><span class="n">regulate</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]),</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">inv</span><span class="p">,</span><span class="w"> </span><span class="n">inv2</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1L</span><span class="n">L</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">regulate</span><span class="p">(</span><span class="n">inv</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ans</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">prod</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<p>差分数列的性质：有 <span class="arithmatex">\(n\)</span> 次通项公式的数列的一阶差分数列有 <span class="arithmatex">\(n-1\)</span> 次通项公式。</p>
 <div class="footnote">
 <hr />
 <ol>
@@ -860,7 +993,7 @@ C_n^m=\left(\prod_{i=1}^{k}{C_{n_i}^{m_i}}\right)\cdot C_{n_0}^{m_0}\bmod p
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 1, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 2, 2022</span>
       
         <br>
         创建日期:
