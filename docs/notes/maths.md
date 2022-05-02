@@ -36,6 +36,8 @@ long long exgcd(long long a, long long b, long long &x, long long &y)
 
 注意 `(x%mod+mod)%mod` 才是最终得到的逆元。
 
+扩展欧几里得算法可以帮助我们解决**线性同余方程**的问题，因为 $ax+by=\gcd(a,b)$ 与 $ax\equiv gcd(a,b) \pmod{b}$ 在本质上是等价的。
+
 ### 乘法逆元
 
 - 逆元的存在条件：a 与 p 互质。
@@ -73,6 +75,9 @@ inv[1] = 1;
 for(int i=2;i<=n;i++)
 	inv[i] = 1LL*pmod[i-1]*pinv[i]%p;
 ```
+
+!!! warning "注意"
+	预处理阶乘和阶乘逆元时，一定要设 `pinv[0]=1` 和 `pmod[0]=1`，不然求组合数时会出错。
 
 ### Lucas 定理
 
@@ -127,3 +132,53 @@ for (int i = 1; i <= n; i++)
 	ans = ((b[i] * m % prod) * x % prod + ans) % prod;
 }
 ```
+
+#### 扩展中国剩余定理
+我们可以采取通过合并两个方程，合并整个方程组的思想。
+
+$$
+\begin{cases}a \equiv r_1 \pmod {m_1} \\ a \equiv r_2 \pmod {m_2}\end{cases}
+$$
+
+我们的目标是构造一个 $x$，满足 $a\equiv x\pmod{\operatorname{lcm}(m1,m2)}$，构造方式如下：
+
+![excrt-formula.jpg](/_static/images/excrt-formula.jpg)
+
+```cpp
+ra = a[1], rb = b[1];
+for(int i=2;i<=n;i++)
+{
+	long long d = exgcd(ra, a[i], x, y), l = ra / d * a[i];
+	assert((b[i]-rb) % d == 0);
+	x = regulate(x, l);
+	rb = regulate(rb + mul(mul((b[i]-rb)/d,x,l),ra,l), l);
+	ra = l;
+}
+```
+## 多项式
+### 拉格朗日插值
+拉格朗日插值的思想是构造 $n$ 个通过其它点的零点和该点的函数，这些函数的和显然符合条件。
+
+$$
+f(k)=\sum_{i=1}^{n} y_i\prod_{j\neq i }\frac{k-x_j}{x_i-x_j}
+$$
+
+```cpp
+// 此处的 regulate(x) 函数等价于 (x%p+p)%p
+for(int i=1;i<=n;i++)
+{
+	int prod = y[i], inv, inv2;
+	for(int j=1;j<=n;j++)
+	{
+		if(i != j)
+		{
+			prod = 1LL * prod * regulate(k - x[j]) % p;
+			exgcd(regulate(x[i] - x[j]), p, inv, inv2);
+			prod = 1LL * prod * regulate(inv) % p;
+		}
+	}
+	ans = (ans + prod) % p;
+}
+```
+
+差分数列的性质：有 $n$ 次通项公式的数列的一阶差分数列有 $n-1$ 次通项公式。

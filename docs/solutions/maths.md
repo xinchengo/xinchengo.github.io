@@ -29,6 +29,13 @@
 	--8<-- "code/P4345.cpp"
 	```
 
+## 拉格朗日插值
+### CF622F The Sum of the k-th Powers
+[题目链接](https://www.luogu.com.cn/problem/CF622F)
+
+大意：求  $\sum_{i=1}^ni^k \bmod (10^9+7)$ 的值。
+
+解法：
 ## 位运算
 ### 概念
 - 基本概念：原码，反码，补码。**正数的三者相等**，负数的反码是原码的取反，补码是反码加 1。
