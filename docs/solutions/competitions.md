@@ -1,4 +1,5 @@
 # 比赛
+
 ## NOI Online 2022
 
 感觉 NOI Online 像在变水，提高组的题也就两道蓝题加一道紫题，数据结构只需要用到树状数组和并查集，没有任何高级的技巧。比赛情况是根据洛谷民间数据，只 A 掉了前两题，最后一题写的是暴力分。
@@ -13,8 +14,8 @@
 
 ??? "赛时代码/正解"
     ```cpp
-	--8<-- "code/original/noi-online-2022-t1.cpp"
-	```
+    --8<-- "code/original/noi-online-2022-t1.cpp"
+    ```
 
 ### T2 讨论
 
@@ -26,8 +27,8 @@
 
 ??? "赛时代码/正解"
     ```cpp
-	--8<-- "code/original/noi-online-2022-t2.cpp"
-	```
+    --8<-- "code/original/noi-online-2022-t2.cpp"
+    ```
 
 ### T3 如何正确地排序
 
@@ -39,5 +40,5 @@
 
 ??? "赛时代码"
     ```cpp
-	--8<-- "code/original/noi-online-2022-t3.cpp"
-	```
+    --8<-- "code/original/noi-online-2022-t3.cpp"
+    ```

@@ -155,6 +155,42 @@ for(int i=2;i<=n;i++)
 	ra = l;
 }
 ```
+
+### BSGS 算法
+BSGS 算法用于求解形如 $a^x\equiv b\pmod{p}$ 的同余方程。
+
+BSGS 算法使用了分块的思想，设 $x=A\cdot \sqrt{p}-B$，则 $a^{A\cdot \sqrt{p}-B}\equiv b\pmod{p}$。当 $a,p$ 互质时，有 $a^{A\cdot \sqrt{p}}\equiv b\cdot a^B\pmod{p}$，两边分别枚举即可，时间复杂度为 $O(\sqrt{p})$。
+
+对于 $a, p$ 不互质的情况，有扩展 BSGS 算法。扩展 BSGS 算法的核心就是把 $a,p$ 同时除以其最大公因数。
+
+下面是求最小解的代码：
+
+```cpp
+long long BSGS(long long a, long long b, long long p)
+{
+	map<long long, long long> powa;
+	long long u = b, lim = sqrt(p), v = pow(a, lim, p), l = inf;
+	for(int i=0;i<lim;i++)
+	{
+		powa[u] = i;
+		u = u * a % p;
+	}
+	u = 1;
+	for(int i=1;i<=lim;i++)
+	{
+		u = u * v % p;
+		if(powa.count(u))
+		{
+			l = min(l,i * lim - powa[u]);
+		}
+	}
+	if(l == inf)
+		return -1;
+	else
+		return l;
+}
+```
+
 ## 多项式
 ### 拉格朗日插值
 拉格朗日插值的思想是构造 $n$ 个通过其它点的零点和该点的函数，这些函数的和显然符合条件。
