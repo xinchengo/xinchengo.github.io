@@ -1,3 +1,5 @@
 docs/.obsidian
 draft/.obsidian
 site/
+.cache/
+.DS_Store

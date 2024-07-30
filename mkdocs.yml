@@ -1,81 +1,59 @@
 site_name: xinchengo 的博客
 site_url: https://lixinchen.cn/
 repo_url: https://github.com/xinchengo/xinchengo.github.io/
-edit_uri: edit/blog/docs/
-copyright: Copyright &copy; 2021 - 2022 xinchengo
+copyright: Copyright &copy; 2024 - 2024 xinchengo
 
 theme:
   name: "material"
   language: zh
-  custom_dir: overrides
-  features:
-    #- navigation.tabs
-    - navigation.sections
-  palette: 
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: indigo
-      accent: indigo
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
       toggle:
-        icon: material/toggle-switch-off-outline 
-        name: 切换至深色模式
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: red
-      accent: red
       toggle:
-        icon: material/toggle-switch
-        name: 切换至浅色模式
+        icon: material/brightness-4
+        name: Switch to system preference
 
-# Extensions
+  features:
+    # Enable tabs for navigation
+    - navigation.tabs
+    # Enable sections in the left side bar
+    - navigation.sections
+
 markdown_extensions:
-  - smarty
-  - footnotes
-  - attr_list
-  - pymdownx.highlight:
-      linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-  - pymdownx.details
-  - pymdownx.magiclink
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.emoji:
-      emoji_generator: !!python/name:pymdownx.emoji.to_svg
-  - admonition
-  - toc:
-      permalink: true
+  # Mathjax support
   - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.critic
-  - pymdownx.caret
-  - pymdownx.keys
-  - pymdownx.mark
-  - pymdownx.tilde
-  - md_in_html
-  - pymdownx.tabbed:
-      alternate_style: true
-  - tables
+        generic: true
+  
+  # Admonition (call-out) support
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  
 
-extra_javascript:
-  - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js
-  - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.min.js
-  - _static/extra.js
 
-extra_css:
-  - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css
-  - https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/copy-tex.css
-  - _static/extra.css
 
 plugins:
-  - search:
-      lang: [en,jp]
-  - roamlinks
-  - git-revision-date-localized:
-      enable_creation_date: true
-  - literate-nav:
-      nav_file: summary.md
+  # - privacy # Disabled because it affects Mathjax font support
+  - blog
+
+extra_javascript:
+  # Mathjax support
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 extra:
   social:
@@ -83,5 +61,3 @@ extra:
       link: https://github.com/xinchengo/
     - icon: fontawesome/brands/qq
       link: http://wpa.qq.com/msgrd?v=3&uin=2773315798&site=qq&menu=yes
-    - icon: luogu
-      link: https://www.luogu.com.cn/user/295455
