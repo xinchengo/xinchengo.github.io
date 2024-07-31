@@ -1,12 +1,17 @@
 ---
-draft: true 
-date: 2024-07-30 
+draft: false
+date: 2024-07-30
 categories:
+    - 笔记
+tags:
     - 机器学习
-    - 日志
 ---
 
 # 信竞生的机器学习日志
+
+这是我最近一段时间学习机器学习的经历和想法，以及对其他信息学竞赛选手学习机器学习的建议。
+
+<!-- more -->
 
 ## 前言
 
@@ -74,7 +79,7 @@ categories:
 
 下图是神经网络的基本结构，每条边上都有一个参数，这些参数不需要预先设定，都是通过学习得到的。我们使用的框架需要是通用的，对于各种各样的问题，都可以通过调整参数（训练）找到一组优秀的解。
 
-![A simple neural network with two hidden layers](/images/20240730-neural-network.png)
+![A simple neural network with two hidden layers](../../images/20240730-neural-network.png)
 
 训练完成后，预期的结果是，我们在输入层输入数据（比如一张图片各个像素点的值），然后在输出层得到我们想要计算的值。（比如这张图片是一只猫，一只狗的置信度）
 
@@ -96,13 +101,13 @@ categories:
 
 传统机器学习理论认为，当参数过多的时候，模型不仅会学会训练集的区别性信息，还会学习训练集的噪声，这种现象叫做**过拟合** (overfitting)。
 
-![Overfitting](/images/20240730-overfitting-light.png#only-light)
-![Overfitting](/images/20240730-overfitting-dark.png#only-dark)
+![Overfitting](../../images/20240730-overfitting-light.png#only-light)
+![Overfitting](../../images/20240730-overfitting-dark.png#only-dark)
 
 然而，现代机器学习理论认为，当参数多到远大于训练集样本信息量的时候，这时候**对于有的模型**过拟合现象可能会逆转，称为**双重下降** (double descent)。
 
-![Double Descent](/images/20240730-double-descent-light.webp#only-light)
-![Double Descent](/images/20240730-double-descent-dark.webp#only-dark)
+![Double Descent](../../images/20240730-double-descent-light.webp#only-light)
+![Double Descent](../../images/20240730-double-descent-dark.webp#only-dark)
 
 双重下降现象的发现催生了当前**大模型**的应用，粗浅的理解是，当模型足够大的时候，很多问题其实都能解决。这印证了 OI 中的一句老话：
 

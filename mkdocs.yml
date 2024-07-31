@@ -32,6 +32,8 @@ theme:
     - navigation.tabs
     # Enable sections in the left side bar
     - navigation.sections
+    # Enable code copy button for every code block
+    - content.code.copy
 
 markdown_extensions:
   # Mathjax support
@@ -41,14 +43,26 @@ markdown_extensions:
   # Admonition (call-out) support
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
   
 
 
 
 plugins:
   # - privacy # Disabled because it affects Mathjax font support
-  - blog
+  # Enable support for blogs
+  - blog:
+      # Make sure that every blog has an excerpt
+      post_excerpt: required
+  # Enable support for tags
+  - tags:
+  # - tags:
+      tags_file: blog/tags.md
 
 extra_javascript:
   # Mathjax support
