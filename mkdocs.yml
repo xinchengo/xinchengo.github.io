@@ -61,8 +61,10 @@ plugins:
       post_excerpt: required
   # Enable support for tags
   - tags:
-  # - tags:
       tags_file: blog/tags.md
+  # Add suppport for adding the date of last update and creation of a document
+  - git-revision-date-localized:
+      enable_creation_date: true
 
 extra_javascript:
   # Mathjax support
