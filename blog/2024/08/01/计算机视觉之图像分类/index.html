@@ -8,13 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://lixinchen.cn/blog/2024/07/31/%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BA%94%E7%94%A8/">
+        <link rel="canonical" href="https://lixinchen.cn/blog/2024/08/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B9%8B%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/">
       
       
-        <link rel="prev" href="../%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%A6%E7%90%86%E5%AD%A6/">
+        <link rel="prev" href="../../../07/31/%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BA%94%E7%94%A8/">
       
-      
-        <link rel="next" href="../../../08/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B9%8B%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/">
       
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
@@ -22,7 +20,7 @@
     
     
       
-        <title>你的第一个机器学习应用 - xinchengo 的博客</title>
+        <title>计算机视觉之图像分类 - xinchengo 的博客</title>
       
     
     
@@ -108,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              你的第一个机器学习应用
+              计算机视觉之图像分类
             
           </span>
         </div>
@@ -574,7 +572,16 @@
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      关于数据集的采集
+      检查数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Softmax 函数和交叉熵误差
     </span>
   </a>
   
@@ -583,7 +590,7 @@
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      关于数据集的清理
+      检查训练效果——混淆矩阵
     </span>
   </a>
   
@@ -592,7 +599,16 @@
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      关于训练效果
+      学习率调参
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      解冻和迁移学习
     </span>
   </a>
   
@@ -604,7 +620,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_7" class="md-nav__link">
     <span class="md-ellipsis">
       总结
     </span>
@@ -649,7 +665,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
-                        <time datetime="2024-07-31 00:00:00" class="md-ellipsis">2024年7月31日</time>
+                        <time datetime="2024-08-01 00:00:00" class="md-ellipsis">2024年8月1日</time>
                       </div>
                     </li>
                     
@@ -671,7 +687,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
                           <span class="md-ellipsis">
                             
-                              需要 2 分钟阅读时间
+                              需要 3 分钟阅读时间
                             
                           </span>
                         </div>
@@ -707,75 +723,99 @@
   
 
 
-<h1 id="_1">你的第一个机器学习应用</h1>
-<p>这是 <em>Deep Learning for Coders with fastai and PyTorch AI Applications Without a PhD (Jeremy Howard, Sylvain Gugger)</em> 第二章 <em>From Model to Production</em> 的学习笔记。</p>
-<p>书的本章中我们需要实现一个棕熊，黑熊，泰迪熊的分类器。示例代码可能不完整，可参考原书或<a href="https://github.com/fastai/fastbook">官方代码仓库</a>。</p>
+<h1 id="_1">计算机视觉之图像分类</h1>
+<p>这是 <em>Deep Learning for Coders with fastai and PyTorch AI Applications Without a PhD (Jeremy Howard, Sylvain Gugger)</em> 第四章 <em>Under the Hood: Training a Digit Classifier</em> 和第五章 <em>Image Classification</em> 的学习笔记。</p>
+<p>第四章中我们需要揭开 <code>fastai</code> 库的神秘面纱，用 PyTorch 动手实现一个数字分类器。第五章中，我们需要了解图像识别的更多细节。</p>
 <!-- more -->
 
 <h2 id="_2">问题</h2>
-<h3 id="_3">关于数据集的采集</h3>
-<p>Bing Image Search 这个 API 需要注册 Azure 账户（需要单独注册，如果使用普通的 Microsoft 账户，进入 Azure 门户会提示有问题），而注册 Azure 账户需要绑定银行卡。由于操作过于麻烦，我选择使用 DuckDuckGo 的图片搜索 API。</p>
-<p>DuckDuckGo API 的使用在这本书配套的网络教程第一课 <a href="https://course.fast.ai/Lessons/lesson1.html">Is it a bird?</a> 中有提及。但是，截止本文创作（2024 年 7 月），Python 库 <code>duckduckgo_search</code> 的使用方法已经发生了变化，具体 API 见<a href="https://github.com/deedy5/duckduckgo_search">该 Python 库的 Github 官方仓库</a>，下面就是一个我采集数据集的代码示例：</p>
-<div class="highlight"><pre><span></span><code><span class="n">bear_types</span> <span class="o">=</span> <span class="s1">&#39;grizzly&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;teddy&#39;</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;bears&#39;</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-    <span class="n">path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">bear_types</span><span class="p">:</span>
-        <span class="n">dest</span> <span class="o">=</span> <span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="n">o</span><span class="p">)</span>
-        <span class="n">dest</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-
-        <span class="n">responce</span> <span class="o">=</span> <span class="n">DDGS</span><span class="p">()</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="n">keywords</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">o</span><span class="si">}</span><span class="s2"> bear&quot;</span><span class="p">,</span> <span class="n">max_results</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
-        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">responce</span><span class="p">:</span>
-            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">])</span>
-
-        <span class="n">download_images</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">urls</span><span class="o">=</span><span class="n">results</span><span class="p">)</span>
+<h3 id="_3">检查数据</h3>
+<p>对于 <code>DataLoaders</code> 类，我们可以使用 <code>show_batch</code> 方法检查若干个数据：</p>
+<div class="highlight"><pre><span></span><code><span class="n">dls</span><span class="o">.</span><span class="n">show_batch</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="_4">关于数据集的清理</h3>
-<p>我的 Jupyter Notebook 本来是在 Kaggle 中运行的，但是，Kaggle 运行这段代码时总是出现莫名其妙的问题：</p>
-<div class="highlight"><pre><span></span><code><span class="n">cleaner</span> <span class="o">=</span> <span class="n">ImageClassifierCleaner</span><span class="p">(</span><span class="n">learn</span><span class="p">)</span>
-<span class="n">cleaner</span>
+<p>当构建 <code>DataBlock</code> 时出现问题，我们还可以用 <code>summary</code> 方法检查 <code>DataBlock</code> 的构建过程，比如，如果我们在 </p>
+<div class="highlight"><pre><span></span><code><span class="n">dls</span> <span class="o">=</span> <span class="n">pets</span><span class="o">.</span><span class="n">dataloaders</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="s2">&quot;images&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p>在 Kaggle 上，这个清理器有时可以正常运行，有时候则不能（两个复选框都正常加载，但图片迟迟没有显示），我怀疑是网络或者是浏览器（Safari）的问题。于是……我只好在本地的 Jupyter Notebook 环境中运行了。本地图片的加载就没有任何卡的时候了，但是，清理数据时仍然有几点需要注意：</p>
+<p>的执行中遇到了问题，我们可以简单地把 <code>dataloaders</code> 替换成 <code>summary</code> 检查 <code>dataloaders</code> 构建的整个过程：</p>
+<div class="highlight"><pre><span></span><code><span class="n">pets</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="s2">&quot;images&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="softmax">Softmax 函数和交叉熵误差</h3>
+<p>书中讲得有些不知所云，更详细的解读可以参考 <a href="https://cs231n.github.io/linear-classify/">Stanford Course</a>。</p>
+<p>对于一个向量 <span class="arithmatex">\(z=(z_1, \dots, z_K)\in \mathbb R^K\)</span>，我们定义 Softmax 函数 <span class="arithmatex">\(\sigma(z)\)</span> 为：</p>
+<div class="arithmatex">\[
+\sigma(z)_i = {e^{z_i} \over\sum_{j=1}^{K}e^{z_j}}
+\]</div>
+<p>交叉熵误差 (cross-entropy loss) <span class="arithmatex">\(L_i\)</span> 则是 <span class="arithmatex">\(\sigma(z)_i\)</span> 的负对数（没错，就是 pH 值中的那个 p 的意思），即 <span class="arithmatex">\(L_i=-\log \sigma (z)_i\)</span></p>
+<p>这两个式子到底有什么意义呢，从形式上来看，Softmax 函数以一个向量作为输入，在神经网络中，它们就是最后一层节点的输出值，我们需要做的事情就是将这些输出值转化为的置信度。我们要求所有分类置信度加起来等于 <span class="arithmatex">\(1\)</span>，容易看出，Softmax 函数是符合这个要求的。</p>
+<p>因此，从<strong>概率</strong>的角度上出发，我们可以认为神经网络输出的是没有经过规范的概率对数。在 Softmax 函数中，求指数操作把概率对数转化“概率”，然后除以各项的和让结果的和为 <span class="arithmatex">\(1\)</span>，得到每一项的“概率”。</p>
+<p>我们还可以从信息论的角度理解这个函数。先介绍信息熵的概念，相信不少信息学竞赛的选手听说过甚至深入学习过：</p>
+<p><strong>信息熵</strong> (entropy)：对于一个离散随机变量 <span class="arithmatex">\(X\in \mathcal X\)</span>，<span class="arithmatex">\(X\)</span> 的<strong>概率质量函数</strong>为 <span class="arithmatex">\(p(X)\)</span>，则信息熵定义为：</p>
+<div class="arithmatex">\[
+\mathrm H(X) := -\sum_{x \in \mathcal{X}} p(x) \log p(x)
+\]</div>
+<p>它的实际意义是，这个随机变量期望提供的信息量。比如，一枚硬币，<span class="arithmatex">\(\mathcal X=\{1,2\},p(1)=p(0)={1\over 2}\)</span>，取 <span class="arithmatex">\(\log\)</span> 的底为 <span class="arithmatex">\(2\)</span>，则它的信息熵为 <span class="arithmatex">\(1\)</span> bit，一枚骰子，<span class="arithmatex">\(\mathcal X=\{1,2,3,4,5,6\}\)</span>，则它的信息熵为 <span class="arithmatex">\(\log_2{3}+1\)</span> bit，显然掷一枚骰子的信息量大于抛两枚硬币的信息量。具体的解释见下文的分析。</p>
+<p>从直觉上可以判断，一个事件的信息量取决于这个事件是否令人惊奇。一个罕见的事件传递的信息量很大，而一个常见的事件传递的信息量很小。香农根据这一个现象引入了<strong>自信息</strong> (information content)。自信息是一个符合以下公理的量：</p>
+<ol>
+<li>一个概率为 <span class="arithmatex">\(1\)</span> 的事件的自信息为 <span class="arithmatex">\(0\)</span>；</li>
+<li>事件的概率越小，自信息越大；</li>
+<li>两个独立事件的信息等于它们各自的自信息之和。（<strong>非常关键，决定公式结构</strong>）</li>
+</ol>
+<p>根据以上三个公理，可以得出<strong>自信息的公式</strong>：</p>
+<div class="arithmatex">\[
+\mathrm{I}(x) := - \log_b{\left[\Pr{\left(x\right)}\right]} = -\log_b{\left(P\right)}
+\]</div>
+<p>其中 <span class="arithmatex">\(b\)</span> 可以是任意大于 <span class="arithmatex">\(1\)</span> 的常量。我们下面来验证自信息符合上述公理 3，设 <span class="arithmatex">\(X,Y\)</span> 是两个相互独立的随机变量，它们的<strong>概率质量函数</strong>分别为 <span class="arithmatex">\(p_X(x)\)</span> 和 <span class="arithmatex">\(p_Y(y)\)</span>，则它们的<strong>联合概率质量函数</strong>为:</p>
+<div class="arithmatex">\[
+p_{X, Y}\!\left(x, y\right) = \Pr(X = x,\, Y = y) 
+ = p_X\!(x)\,p_Y\!(y)
+\]</div>
+<p>因为 <span class="arithmatex">\(X\)</span> 和 <span class="arithmatex">\(Y\)</span> 相互独立，结果 <span class="arithmatex">\((X,Y)=(x,y)\)</span> 的自信息为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\operatorname{I}_{X,Y}(x, y) &amp;= -\log_2\left[p_{X,Y}(x, y)\right]
+ = -\log_2 \left[p_X\!(x)p_Y\!(y)\right] \\[5pt]
+ &amp;= -\log_2 \left[p_X{(x)}\right] -\log_2 \left[p_Y{(y)}\right] \\[5pt]
+ &amp;= \operatorname{I}_X(x) + \operatorname{I}_Y(y)
+\end{aligned}
+\]</div>
+<p>观察到自信息比概率降低了一个阶，所以两个概率的相乘就可以转化为两个自信息的相加。这种定义符合公理 <span class="arithmatex">\(3\)</span>，所以它的期望是有<strong>实际意义</strong>的。从两个公式的比较可以推出，信息熵的公式就是对自信息的公式求期望，也就是说，信息熵就是这个随机变量产生自信息的<strong>期望值</strong>。</p>
+<p>信息熵的意义是，对于信息熵很低的文件，我们可以构造一种编码（比如<strong>哈夫曼编码</strong>，做过<a href="https://www.luogu.com.cn/problem/P1090">合并果子</a>的人可能听说过这个概念）让文件大小变小。比如，如果某个长片段在一个文件里经常出现，我们可以用较短的编码代表这个片段，而用较长的编码代表较短但罕见的片段。这时又出现了一个新的问题：如果我们为概率分布 <span class="arithmatex">\(q\)</span> 设计了一套哈夫曼编码，但是真实的信息是按概率分布 <span class="arithmatex">\(p\)</span> 出现的，每个事件平均要用多少个比特呢？这时我们就需要引入交叉熵的概念：</p>
+<p><strong>交叉熵</strong> (cross-entropy)：设 <span class="arithmatex">\(p,q\)</span> 为两个离散概率分布的概率质量函数，我们定义 <span class="arithmatex">\(q\)</span> 关于 <span class="arithmatex">\(p\)</span> 的交叉熵为：</p>
+<div class="arithmatex">\[
+H(p, q) = - \sum_{x\in \mathcal X}p(x)\log q(x)
+\]</div>
+<p>观察上式的形式，它与信息熵公式唯一的区别就是 <span class="arithmatex">\(\log\)</span> 内的内容是 <span class="arithmatex">\(q\)</span> 而不是 <span class="arithmatex">\(p\)</span>。现在仍然回到上述的例子，假设我们已经对概率分布 <span class="arithmatex">\(q\)</span> 设计了一套“量身定制”的哈夫曼编码，如果 <span class="arithmatex">\(x\)</span> 出现的概率为 <span class="arithmatex">\(q(x)\)</span>，理想的哈夫曼编码中 <span class="arithmatex">\(x\)</span> 应该用 <span class="arithmatex">\(-\log q(x)\)</span> bit 表示，也就是说，理想哈夫曼编码的长度应当等同于它的信息量（虽然一般做不到）。这时，因为真实的信息是按照概率分布 <span class="arithmatex">\(p\)</span> 出现的，我们按照 <span class="arithmatex">\(p\)</span> 对这个哈夫曼编码的长度求期望就可以了。</p>
+<p>容易发现，假设 <span class="arithmatex">\(p\)</span> 是未知的常量，我们对 <span class="arithmatex">\(q\)</span> 猜测得越准，平均编码一个事件所需的比特就越少。所以，交叉熵其实也反映了两个概率分布的<strong>接近程度</strong>。回到 Softmax 分类器的问题上，Softmax 的误差函数（交叉熵误差函数）具有以下形式：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L_i &amp;= -\log\left(e^{f_{y_i}}\over\sum_je^{f_j}\right) \\
+&amp;=-\sum_k\mathbb{1}(k=y_i)\log\left(e^{f_k}\over\sum_je^{f_j}\right)
+\end{aligned}
+\]</div>
+<p>上式中 <span class="arithmatex">\(\mathbb{1}\)</span> 的意思就是，若内部条件为真，则值为 <span class="arithmatex">\(1\)</span>，否则为 <span class="arithmatex">\(0\)</span>。根据上式形式可以看出：交叉熵误差函数衡量的是，真实分布的概率质量函数（<span class="arithmatex">\(p=[0,\dots,1,\dots,0]\)</span>，只在正确的分类上为 <span class="arithmatex">\(1\)</span>）和神经网络推断出的概率质量函数的差异。这个函数的值越小，说明预测越准确。</p>
+<h3 id="_4">检查训练效果——混淆矩阵</h3>
+<p>混淆矩阵 (confusion matrix)：</p>
+<div class="highlight"><pre><span></span><code><span class="n">interp</span> <span class="o">=</span> <span class="n">ClassificationInterpretation</span><span class="o">.</span><span class="n">from_learner</span><span class="p">(</span><span class="n">learn</span><span class="p">)</span>
+<span class="n">interp</span><span class="o">.</span><span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</code></pre></div>
+<p>若要输出混淆矩阵中最混淆的项目，可以使用如下代码：</p>
+<div class="highlight"><pre><span></span><code><span class="n">interp</span><span class="o">.</span><span class="n">most_confused</span><span class="p">(</span><span class="n">min_val</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="_5">学习率调参</h3>
+<p>学习率的调参——学习率查找器 (Learning Rate Finder)。</p>
+<p>学习率查找器可以画出当学习率逐步增加时，单次迭代后误差 (loss) 的图像，并给出这个图像下降最快的点，发生转折的点等特殊点。我们可以借助这个图像找到（可能）的最优学习率。学习率查找器可以用如下代码调用：</p>
+<div class="highlight"><pre><span></span><code><span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">resnet34</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">error_rate</span><span class="p">)</span>
+<span class="n">lrs</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">lr_find</span><span class="p">(</span><span class="n">suggest_funcs</span><span class="o">=</span><span class="p">(</span><span class="n">minimum</span><span class="p">,</span> <span class="n">steep</span><span class="p">))</span> <span class="c1"># 注意书上的代码较老，截至本文创作时间，API 已经发生变化。</span>
+</code></pre></div>
+<p><img alt="Learning Rate Finder" src="../../../../../images/20240801-lr-finder-light.png#only-light" />
+<img alt="Learning Rate Finder" src="../../../../../images/20240801-lr-finder-dark.png#only-dark" /></p>
+<p>上述代码中输出的 <code>lrs.minimum</code> 是误差函数最小时学习率的<strong>十分之一</strong>，<code>lrs.steep</code> 是误差函数图像上最陡处的学习率，我们可以参考这两个值设置学习率。</p>
+<h3 id="_6">解冻和迁移学习</h3>
+<p>(未完待续)</p>
+<h2 id="_7">总结</h2>
 <ul>
-<li>清理器的界面是上方两排选择框，下方一行待处理的图片。</li>
-<li>
-<p>先不要动选择框，把待处理的图片操作勾选完成后，<strong>立马</strong>执行以下的代码：
-    <div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">cleaner</span><span class="o">.</span><span class="n">delete</span><span class="p">():</span> <span class="n">cleaner</span><span class="o">.</span><span class="n">fns</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">cleaner</span><span class="o">.</span><span class="n">change</span><span class="p">():</span> <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cleaner</span><span class="o">.</span><span class="n">fns</span><span class="p">[</span><span class="n">idx</span><span class="p">]),</span> <span class="n">path</span><span class="o">/</span><span class="n">cat</span><span class="p">)</span>
-</code></pre></div></p>
-<p>这段代码的意义是：处理当前勾选的照片。注意这段代码<strong>只能执行一次</strong>。</p>
-</li>
-<li>
-<p>执行上述代码后，再可以动选择框处理其他的图片组，顺序非常重要，因为你每次动选择框，<code>cleaner</code> 的状态就会被重置。</p>
-</li>
-</ul>
-<h3 id="_5">关于训练效果</h3>
-<p>经过反复的的训练和数据清理，我去除了不下十张的奇怪的照片，调整了十几张照片的分类，但是我模型的准确率还是达不到书中示例的水平，我最终的混淆矩阵 (confusion matrix) 如下图所示：</p>
-<p><img alt="Confusion matrix" src="../../../../../images/20240731-confusion-light.png#only-light" />
-<img alt="Confusion matrix" src="../../../../../images/20240731-confusion-dark.png#only-dark" /></p>
-<p>图中显示我的模型把 5 只棕熊误认作黑熊，这个错误的来源可能来源于，我对棕熊，黑熊的了解太少，在清理数据的时候把少量棕熊、黑熊的图片移到了错误的分类，模型本身不存在什么问题。</p>
-<p>但是，书的作者也不是熊的分类专家，为什么书中的训练效果比我好那么多呢？我猜可能还是搜索引擎的问题，但无论如何，这个示例教会了我们如何在网上搜集数据用开源的机器学习库训练自己的模型，其教育意义是无法掩盖了。一些小小的遗憾，也只能留待以后自己水平更强后再夷平了。</p>
-<h2 id="_6">总结</h2>
-<ul>
-<li>
-<p>制作机器学习应用的流程：</p>
-<pre class="mermaid"><code>flowchart LR
-    A(准备数据)
-    B(选择模型)
-    C(训练模型)
-    D(清理数据)
-    E(下载模型)
-    F(发布应用)
-    A --&gt; B
-    B --&gt; C
-    C --&gt; D
-    D --&gt; C
-    C --&gt; E
-    E --&gt; F</code></pre>
-<p>其中，<strong>清理数据</strong>和<strong>准备数据</strong>两个步骤是非常重要的。大多数机器学习的问题都可以用几个特定的通用模型解决，训练模型的时候也可以使用很多预训练的模型 (pretrained model) 进行<strong>迁移学习</strong> (transfer learning) 节约时间。但是准备数据没有通用的方法，视具体问题解决方法不尽相同，是机器学习的重点；清理数据是将不符合要求的数据移出数据集，工作量大，对方法的要求很高，是机器学习的难点。</p>
-</li>
+<li>一般神经网络算法的流程：初始化——迭代优化——输出解</li>
+<li>基线 (baseline)：作为对照的模型，一个复杂的模型准确率只有明显高于基线才有意义。</li>
 </ul>
 
 
@@ -799,7 +839,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 31, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 1, 2024</span>
   </span>
 
     
@@ -809,7 +849,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 31, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 1, 2024</span>
   </span>
 
     
