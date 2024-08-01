@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 date: 2024-07-31
 categories:
     - 笔记
