@@ -599,7 +599,7 @@
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      学习率调参
+      学习率的调参
     </span>
   </a>
   
@@ -608,7 +608,7 @@
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      解冻和迁移学习
+      迁移学习
     </span>
   </a>
   
@@ -801,7 +801,7 @@ L_i &amp;= -\log\left(e^{f_{y_i}}\over\sum_je^{f_j}\right) \\
 <p>若要输出混淆矩阵中最混淆的项目，可以使用如下代码：</p>
 <div class="highlight"><pre><span></span><code><span class="n">interp</span><span class="o">.</span><span class="n">most_confused</span><span class="p">(</span><span class="n">min_val</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="_5">学习率调参</h3>
+<h3 id="_5">学习率的调参</h3>
 <p>学习率的调参——学习率查找器 (Learning Rate Finder)。</p>
 <p>学习率查找器可以画出当学习率逐步增加时，单次迭代后误差 (loss) 的图像，并给出这个图像下降最快的点，发生转折的点等特殊点。我们可以借助这个图像找到（可能）的最优学习率。学习率查找器可以用如下代码调用：</p>
 <div class="highlight"><pre><span></span><code><span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">resnet34</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">error_rate</span><span class="p">)</span>
@@ -810,12 +810,31 @@ L_i &amp;= -\log\left(e^{f_{y_i}}\over\sum_je^{f_j}\right) \\
 <p><img alt="Learning Rate Finder" src="../../../../../images/20240801-lr-finder-light.png#only-light" />
 <img alt="Learning Rate Finder" src="../../../../../images/20240801-lr-finder-dark.png#only-dark" /></p>
 <p>上述代码中输出的 <code>lrs.minimum</code> 是误差函数最小时学习率的<strong>十分之一</strong>，<code>lrs.steep</code> 是误差函数图像上最陡处的学习率，我们可以参考这两个值设置学习率。</p>
-<h3 id="_6">解冻和迁移学习</h3>
-<p>(未完待续)</p>
+<h3 id="_6">迁移学习</h3>
+<p>迁移学习 (transfer learning) 是指借助一个已有的模型训练新模型的过程。</p>
+<p>对于视觉模型来说，较浅层次的节点一般捕捉输入图像中浅层次的特征（比如某些图案，颜色的渐变），而较深层次的节点则表示图片中细节性的特征（比如是否是一只猫，或者是否是一辆车）。由于现实生活中的图像数据都有着相似的特点，我们可以保留预训练模型中 (pretrained model) 浅层次的参数，调节深层次的参数，从而达到用有限的数据集和算力训练视觉模型的目的。</p>
+<p>冻结 (freeze) 指在迁移学习的初期，为了防止破坏预训练的模型，把部分（或者全部）参数锁定，只训练最后一层随机添加的参数的过程。这其实等价于将预训练的模型（除去最后一层）当作输入信息的一个“预处理器”，然后以“预处理器”的输出作为输入训练一个线性分类器。</p>
+<p>解冻 (unfreezing)：当我们训练好了最后一层的参数，我们需要将先前冻结的参数取消锁定以增强模型的通用性。</p>
+<p>FastAI 库中的 <code>fine_tune</code> 方法默认会冻结 (freeze) 预训练的模型训练最后一层一个周期，然后解冻，再训练指定个周期。如果要人为调节冻结的周期数，可以使用下列过程：</p>
+<ul>
+<li><code>learn.fit_one_cycle(3, 3e-3)</code>：冻结训练三个周期</li>
+<li><code>learn.unfreeze()</code>：解冻</li>
+<li><code>learn.lr_find()</code>：老的学习率不再管用，需要寻找新的学习率</li>
+<li><code>learn.fit_one_cycle(6, lr_max=1e-5)</code>：解冻后继续训练</li>
+</ul>
+<p>上述代码可以用 <code>learn.fine_tune(6, freeze_epochs=3)</code> 一句代替</p>
+<p>区别性学习率 (discriminative learning rates) 是另一个防止破坏预训练模型的方法。丛直觉上可以推断，浅层的参数需要的学习率要低于深层的参数。这个结果也得到了<a href="http://arxiv.org/pdf/1411.1792">实验上的证实</a>。</p>
+<p>FastAI 中默认使用区别性学习率，但也可以人为调节，代码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">lr_max</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">))</span>
+</code></pre></div>
 <h2 id="_7">总结</h2>
 <ul>
 <li>一般神经网络算法的流程：初始化——迭代优化——输出解</li>
 <li>基线 (baseline)：作为对照的模型，一个复杂的模型准确率只有明显高于基线才有意义。</li>
+<li>交叉熵误差 (cross-entropy loss)：衡量两个概率分布的区别大小</li>
+<li>学习率的调参——最陡处或者最低点的十分之一</li>
+<li>周期数的调参——刚好就行</li>
+<li>模型的选择——从小的开始试，如果大的模型更好就改用大的</li>
 </ul>
 
 
@@ -839,7 +858,7 @@ L_i &amp;= -\log\left(e^{f_{y_i}}\over\sum_je^{f_j}\right) \\
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 1, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 2, 2024</span>
   </span>
 
     
