@@ -39,6 +39,8 @@ markdown_extensions:
   # Mathjax support
   - pymdownx.arithmatex:
         generic: true
+  # Enable ~~Strikethrough~~
+  - pymdownx.tilde
   
   # Admonition (call-out) support
   - admonition
