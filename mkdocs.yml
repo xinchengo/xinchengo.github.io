@@ -28,8 +28,8 @@ theme:
         name: Switch to system preference
 
   features:
-    # Enable tabs for navigation
-    - navigation.tabs
+    # Disable tabs for navigation
+    # - navigation.tabs
     # Enable sections in the left side bar
     - navigation.sections
     # Enable code copy button for every code block
@@ -57,13 +57,6 @@ markdown_extensions:
 
 plugins:
   # - privacy # Disabled because it affects Mathjax font support
-  # Enable support for blogs
-  - blog:
-      # Make sure that every blog has an excerpt
-      post_excerpt: required
-  # Enable support for tags
-  - tags:
-      tags_file: blog/tags.md
   # Add suppport for adding the date of last update and creation of a document
   - git-revision-date-localized:
       enable_creation_date: true
