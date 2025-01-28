@@ -413,9 +413,18 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#gan_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      距离的选择在 GAN 中的重要性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      前置知识
+      一维情形下的不同距离
     </span>
   </a>
   
@@ -424,7 +433,16 @@
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      一些距离的定义
+      不同距离的强弱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      各种不同的距离
     </span>
   </a>
   
@@ -735,9 +753,18 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#gan_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      距离的选择在 GAN 中的重要性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      前置知识
+      一维情形下的不同距离
     </span>
   </a>
   
@@ -746,7 +773,16 @@
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
-      一些距离的定义
+      不同距离的强弱
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      各种不同的距离
     </span>
   </a>
   
@@ -837,7 +873,7 @@
 <li>之后我又尝试了把 <span class="arithmatex">\(32\times 32\)</span> 的图片裁剪成 <span class="arithmatex">\(28\times 28\)</span>，再在<strong>不改动结构</strong>的情况下直接训练。这次训练中，损失函数收敛了，但是没有收敛到最优解。</li>
 </ul>
 <h2 id="wasserstein-gan">Wasserstein GAN</h2>
-<p>以下是我读<a href="具体读[这篇论文](https://arxiv.org/abs/1701.07875)">Arjovsky 等人的原论文</a>的笔记</p>
+<p>以下是我读<a href="https://arxiv.org/abs/1701.07875">Arjovsky 等人的原论文</a>的笔记</p>
 <h3 id="_3">引入</h3>
 <p>根据 <a href="https://developers.google.com/machine-learning/gan/problems">Google 的教程</a>，GAN 的训练常常遇到三类问题：</p>
 <ul>
@@ -860,8 +896,69 @@
 \max_{\theta\in\mathbb R^d}\frac{1}{m}\sum_{i=1}^m\log P_{\theta}(x^{(i)})
 \]</div>
 <p>如果真实数据分布 <span class="arithmatex">\(\mathbb P_r\)</span> 存在密度，而 <span class="arithmatex">\(\mathbb P_{\theta}\)</span> 是参数化密度 <span class="arithmatex">\(\mathbb P_{\theta}\)</span> 对应的分布，那么在大样本的情况下，这等价于最小化 <strong>Kullback-Leibler 散度</strong> (Kullback-Leibler divergence) <span class="arithmatex">\(KL(\mathbb P_r||\mathbb P_{\theta})\)</span>。</p>
-<h3 id="_5">前置知识</h3>
-<h3 id="_6">一些距离的定义</h3>
+<p>然而，这种方法的一个关键问题是，<strong>模型密度 <span class="arithmatex">\(P_\theta\)</span> 必须存在</strong>。在许多实际情况下，数据分布 <span class="arithmatex">\(\mathbb{P}_r\)</span> 是由低维流形 (manifold) 支撑的（例如，图像数据通常位于高维像素空间中的低维流形上）。在这种情况下，模型流形和真实分布的支撑集 (support) 不太可能有显著的交集，这意味着 KL 散度可能没有定义（或者为无穷大）。</p>
+<p>与其去估计 <span class="arithmatex">\(\mathbb P_r\)</span> 的密度，我们可以定义一个随机变量 <span class="arithmatex">\(Z\)</span>，它具有固定的分布 <span class="arithmatex">\(p(z)\)</span>，并通过一个参数化函数 <span class="arithmatex">\(g_\theta: \mathcal{Z} \rightarrow \mathcal{X}\)</span>（通常是某种神经网络）直接生成样本，从而生成某种分布 <span class="arithmatex">\(\mathbb{P}_\theta\)</span>。通过调整 <span class="arithmatex">\(\theta\)</span>，我们可以改变这个分布，使其接近真实数据分布 <span class="arithmatex">\(\mathbb{P}_r\)</span>。这种方法有两个优点：首先，与密度不同，这种方法可以表示局限于低维流形上的分布；其次，生成样本的能力通常比知道密度的数值更有用。</p>
+<p><strong>变分自编码器</strong> (Variational Auto-Encoders, VAEs) 和<strong>生成对抗网络</strong>都是后者的著名例子。</p>
+<h3 id="gan_1">距离的选择在 GAN 中的重要性</h3>
+<p>对于 GAN，我们可以选择各种距离作为目标函数，包括 Jensen-Shannon 散度，所有 <span class="arithmatex">\(f\)</span>-散度，以及一些奇特的组合。</p>
+<p><a href="https://arxiv.org/abs/1701.07875">Arjovsky 等人的原论文</a>探讨的就是<strong>衡量模型分布和真实分布接近程度</strong>的方法，或者说，如何定义分布之间的距离或散度 <span class="arithmatex">\(\rho(\mathbb P_{\theta},\mathbb P_r)\)</span>。这些距离的最根本区别在于它们对<strong>概率分布序列敛散性</strong>的影响。一个分布序列 <span class="arithmatex">\((\mathbb P_t)_{t\in\mathbb N}\)</span> 收敛，当且仅当存在一个分布 <span class="arithmatex">\(\mathbb P_{\infty}\)</span>，使得 <span class="arithmatex">\(\rho(\mathbb P_t,\mathbb P_{\infty})\)</span> 趋近于 <span class="arithmatex">\(0\)</span>，这取决于距离 <span class="arithmatex">\(\rho\)</span> 的具体定义。非正式地说，当距离 <span class="arithmatex">\(\rho\)</span> 使得分布序列更容易收敛时，它诱导的拓扑结构 (topology) 更弱。</p>
+<p>为了方便优化模型的参参数，我们希望这个模型能够让 <span class="arithmatex">\(\theta \mapsto \mathbb P_{\theta}\)</span> 这个映射连续，即，对于所有收敛于 <span class="arithmatex">\(\theta\)</span> 的子列 <span class="arithmatex">\(\left\{\theta_t\right\}\)</span> 都满足 <span class="arithmatex">\(\left\{\mathbb P_{\theta_t}\right\}\)</span> 收敛于 <span class="arithmatex">\(\mathbb P_{\theta}\)</span>。但是，别忘了，<span class="arithmatex">\(\left\{\mathbb P_{\theta_t}\right\}\)</span> 是否收敛取决与我们使用的是什么距离。<strong>距离越弱，这个分布的序列就越容易收敛</strong>，事实上，<span class="arithmatex">\(\rho\)</span> 诱导拓扑结构强弱就是由收敛序列集合的关系定义的。</p>
+<p>Wasserstein GAN 最小化的目标就是（近似的）Wasserstein 距离，这是它各种优点的来源。</p>
+<h3 id="_5">一维情形下的不同距离</h3>
+<p>由于我的数学知识积累还比较有限，对这些特殊的数学符号还不够熟悉，所以将考虑简单情况下这些距离的定义。</p>
+<ol>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures"><strong>总变差距离</strong></a> (<strong>Total Variation</strong>, TV)：</p>
+<p>如果 <span class="arithmatex">\(\mathbb P,\mathbb Q\)</span> 这两个分布有着概率密度函数 <span class="arithmatex">\(p,q\)</span>，那么它们的<strong>总变差距离</strong>定义为：</p>
+<div class="arithmatex">\[
+\delta(\mathbb P,\mathbb Q)=\frac{1}{2}\int_{-\infty}^{+\infty} |p(x)-q(x)|\mathrm dx
+\]</div>
+<p>从直观上理解，如果把 <span class="arithmatex">\(y=p(x),y=q(x)\)</span> 画出来，它们的总变差距离就是两个函数之间包围的面积。</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence"><strong>Kullback-Leibler 散度</strong></a> (KL)：</p>
+<p>如果 <span class="arithmatex">\(\mathbb P,\mathbb Q\)</span> 这两个分数有着概率密度函数 <span class="arithmatex">\(p,q\)</span>，那么 Q 到 P 的相对熵（即 <strong>KL 散度</strong>）被定义为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+D_{KL}(\mathbb P||\mathbb Q)&amp;=\int_{-\infty}^{+\infty}p(x)\log\left(\frac{p(x)}{q(x)}\right)\mathrm dx \\
+&amp;=\mathbb E_{x\sim \mathbb P}\left[\log\frac{p(x)}{q(x)}\right]
+\end{aligned}
+\]</div>
+<p>在这个定义下，KL 散度在很多情况下都不存在，而且即使存在也很可能不是对称的（考虑 <span class="arithmatex">\(\exists x,q(x)=0\)</span>）。为了让这个散度变得对称，我们又定义了一个<strong>Jensen-Shannon 散度</strong>，即：</p>
+<div class="arithmatex">\[
+\begin{gather*}
+D_{JS}(\mathbb P||\mathbb Q)=D_{KL}(\mathbb P||\mathbb M)+D_{KL}(\mathbb Q||\mathbb M)\\
+M=(\mathbb P+\mathbb Q)/2
+\end{gather*}
+\]</div>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance"><strong>动土者距离</strong></a> (Earth Mover's distance, EMD)：</p>
+<p>如果 <span class="arithmatex">\(\mathbb P,\mathbb Q\)</span> 这两个分布有着概率密度函数 <span class="arithmatex">\(p,q,P(x)=\int_{-\infty}^xp(t)\mathrm dt,Q(x)=\int_{-\infty}^q(t)\mathrm dt\)</span>，则它们的<strong>动土者距离</strong>为：</p>
+<div class="arithmatex">\[
+W_1(\mathbb P,\mathbb Q)=\int_{-\infty}^{\infty}|P(x)-Q(x)|\mathrm dx
+\]</div>
+<p>动土者距离是计算机科学上的称谓，在数学领域，一般把这种距离称为 <a href="https://en.wikipedia.org/wiki/Wasserstein_metric"><strong>Wasserstein-1 距离</strong></a>或者 <strong>Kantorovich–Rubinstein 距离</strong>。从直观上理解，如果把 <span class="arithmatex">\(y=p(x),y=q(x)\)</span> 的图像画出来，动土者距离就相当于把 <span class="arithmatex">\(p(x)\)</span> “搬运”成 <span class="arithmatex">\(q(x)\)</span> 最小需要耗费的代价（只计水平方向上的）。</p>
+</li>
+</ol>
+<h3 id="_6">不同距离的强弱</h3>
+<p><strong>定理 1</strong>：记 <span class="arithmatex">\(\mathbb P\)</span> 是一个一维的概率分布，<span class="arithmatex">\(\left\{\mathbb P_n\right\}\)</span> 是一个概率分布的序列，<span class="arithmatex">\(\mathbb P\)</span> 有着概率密度函数 <span class="arithmatex">\(p\)</span>，<span class="arithmatex">\(\mathbb P_i\)</span> 有着概率密度函数 <span class="arithmatex">\(p_i\)</span>，则，考虑它们在 <span class="arithmatex">\(n\to\infty\)</span> 的极限：</p>
+<ol>
+<li>以下两个命题等价：<ul>
+<li><span class="arithmatex">\(\delta(\mathbb P_n,\mathbb P)\to 0\)</span></li>
+<li><span class="arithmatex">\(D_{JS}(\mathbb P_n,\mathbb P)\to 0\)</span></li>
+</ul>
+</li>
+<li>以下两个命题等价：<ul>
+<li><span class="arithmatex">\(W(\mathbb P_n,\mathbb P)\to 0\)</span></li>
+<li><span class="arithmatex">\(\mathbb P_n\xrightarrow{\mathcal D}\mathbb P\)</span>，其中 <span class="arithmatex">\(\xrightarrow{\mathcal D}\)</span> 代表<strong>依分布收敛</strong> (convergence in distribution)，即，<span class="arithmatex">\(\forall x,\lim_{n\to\infty}p_n(x)=p(x)\)</span>。</li>
+</ul>
+</li>
+<li>若 <span class="arithmatex">\(D_{KL}(\mathbb P_n||\mathbb P)\to 0\)</span> 或 <span class="arithmatex">\(D_{KL}(\mathbb P_n||\mathbb P)\to 0\)</span>，则 1 中命题成立。</li>
+<li>若 1 中命题成立，则 2 中命题成立。</li>
+</ol>
+<p>TBC</p>
+<h3 id="_7">各种不同的距离</h3>
 <p>先介绍一些符号和定义。记 <span class="arithmatex">\(\mathcal X\)</span> 是一个<strong>紧致度量空间</strong> (compact metric set)，<span class="arithmatex">\(\Sigma\)</span> 表示 <span class="arithmatex">\(\mathcal X\)</span> 上所有 Borel 子集的集合，设 <span class="arithmatex">\(\operatorname{Prob}(\mathcal X)\)</span> 表示定义在 <span class="arithmatex">\(\mathcal X\)</span> 上的概率测度空间 (space of probability measures)。我们现在可以定义两个分布 <span class="arithmatex">\(\mathbb P_r,\mathbb P_g\in\operatorname{Prob}(\mathcal X)\)</span> 之间的基本距离和散度：</p>
 <ol>
 <li>
@@ -881,10 +978,10 @@ KL(\mathbb P_r ||\mathbb P_g) = \int\log\left(\frac{P_r(x)}{P_g(x)}\right)\mathr
 <li>
 <p><strong>Jensen-Shannon 散度</strong> (JS)：</p>
 <div class="arithmatex">\[
-\begin{gather}
+\begin{gather*}
 JS(\mathbb P_r,\mathbb P_g)=KL(\mathbb P_r ||\mathbb P_m) + KL(\mathbb P_g || \mathbb P_m) \\
 \mathbb P_m = (\mathbb P_r + \mathbb P_g) / 2
-\end{gather}
+\end{gather*}
 \]</div>
 <p>这个散度是对称的，并且总是有定义的，因为我们可以选择 <span class="arithmatex">\(\mu = \mathbb P_m\)</span>。</p>
 </li>
@@ -918,7 +1015,7 @@ W(\mathbb P_r,\mathbb P_g) = \inf_{\gamma\in\Pi(\mathbb P_r,\mathbb P_g)}\mathbb
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月27日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月28日</span>
   </span>
 
     
