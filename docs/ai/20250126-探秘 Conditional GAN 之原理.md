@@ -75,8 +75,7 @@ Update：
 
 ## Wasserstein GAN
 
-以下是我读[Arjovsky 等人的原论文](
-具体读[这篇论文](https://arxiv.org/abs/1701.07875))的笔记
+以下是我读[Arjovsky 等人的原论文](https://arxiv.org/abs/1701.07875)的笔记
 
 ### 引入
 
@@ -106,11 +105,82 @@ $$
 
 如果真实数据分布 $\mathbb P_r$ 存在密度，而 $\mathbb P_{\theta}$ 是参数化密度 $\mathbb P_{\theta}$ 对应的分布，那么在大样本的情况下，这等价于最小化 **Kullback-Leibler 散度** (Kullback-Leibler divergence) $KL(\mathbb P_r||\mathbb P_{\theta})$。
 
-### 前置知识
+然而，这种方法的一个关键问题是，**模型密度 $P_\theta$ 必须存在**。在许多实际情况下，数据分布 $\mathbb{P}_r$ 是由低维流形 (manifold) 支撑的（例如，图像数据通常位于高维像素空间中的低维流形上）。在这种情况下，模型流形和真实分布的支撑集 (support) 不太可能有显著的交集，这意味着 KL 散度可能没有定义（或者为无穷大）。
 
+与其去估计 $\mathbb P_r$ 的密度，我们可以定义一个随机变量 $Z$，它具有固定的分布 $p(z)$，并通过一个参数化函数 $g_\theta: \mathcal{Z} \rightarrow \mathcal{X}$（通常是某种神经网络）直接生成样本，从而生成某种分布 $\mathbb{P}_\theta$。通过调整 $\theta$，我们可以改变这个分布，使其接近真实数据分布 $\mathbb{P}_r$。这种方法有两个优点：首先，与密度不同，这种方法可以表示局限于低维流形上的分布；其次，生成样本的能力通常比知道密度的数值更有用。
 
+**变分自编码器** (Variational Auto-Encoders, VAEs) 和**生成对抗网络**都是后者的著名例子。
 
-### 一些距离的定义
+### 距离的选择在 GAN 中的重要性
+
+对于 GAN，我们可以选择各种距离作为目标函数，包括 Jensen-Shannon 散度，所有 $f$-散度，以及一些奇特的组合。
+
+[Arjovsky 等人的原论文](https://arxiv.org/abs/1701.07875)探讨的就是**衡量模型分布和真实分布接近程度**的方法，或者说，如何定义分布之间的距离或散度 $\rho(\mathbb P_{\theta},\mathbb P_r)$。这些距离的最根本区别在于它们对**概率分布序列敛散性**的影响。一个分布序列 $(\mathbb P_t)_{t\in\mathbb N}$ 收敛，当且仅当存在一个分布 $\mathbb P_{\infty}$，使得 $\rho(\mathbb P_t,\mathbb P_{\infty})$ 趋近于 $0$，这取决于距离 $\rho$ 的具体定义。非正式地说，当距离 $\rho$ 使得分布序列更容易收敛时，它诱导的拓扑结构 (topology) 更弱。
+
+为了方便优化模型的参参数，我们希望这个模型能够让 $\theta \mapsto \mathbb P_{\theta}$ 这个映射连续，即，对于所有收敛于 $\theta$ 的子列 $\left\{\theta_t\right\}$ 都满足 $\left\{\mathbb P_{\theta_t}\right\}$ 收敛于 $\mathbb P_{\theta}$。但是，别忘了，$\left\{\mathbb P_{\theta_t}\right\}$ 是否收敛取决与我们使用的是什么距离。**距离越弱，这个分布的序列就越容易收敛**，事实上，$\rho$ 诱导拓扑结构强弱就是由收敛序列集合的关系定义的。
+
+Wasserstein GAN 最小化的目标就是（近似的）Wasserstein 距离，这是它各种优点的来源。
+
+### 一维情形下的不同距离
+
+由于我的数学知识积累还比较有限，对这些特殊的数学符号还不够熟悉，所以将考虑简单情况下这些距离的定义。
+
+1. [**总变差距离**](https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures) (**Total Variation**, TV)：
+
+    如果 $\mathbb P,\mathbb Q$ 这两个分布有着概率密度函数 $p,q$，那么它们的**总变差距离**定义为：
+
+    $$
+    \delta(\mathbb P,\mathbb Q)=\frac{1}{2}\int_{-\infty}^{+\infty} |p(x)-q(x)|\mathrm dx
+    $$
+
+    从直观上理解，如果把 $y=p(x),y=q(x)$ 画出来，它们的总变差距离就是两个函数之间包围的面积。
+
+2. [**Kullback-Leibler 散度**](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) (KL)：
+
+    如果 $\mathbb P,\mathbb Q$ 这两个分数有着概率密度函数 $p,q$，那么 Q 到 P 的相对熵（即 **KL 散度**）被定义为：
+
+    $$
+    \begin{aligned}
+    D_{KL}(\mathbb P||\mathbb Q)&=\int_{-\infty}^{+\infty}p(x)\log\left(\frac{p(x)}{q(x)}\right)\mathrm dx \\
+    &=\mathbb E_{x\sim \mathbb P}\left[\log\frac{p(x)}{q(x)}\right]
+    \end{aligned}
+    $$
+
+    在这个定义下，KL 散度在很多情况下都不存在，而且即使存在也很可能不是对称的（考虑 $\exists x,q(x)=0$）。为了让这个散度变得对称，我们又定义了一个**Jensen-Shannon 散度**，即：
+
+    $$
+    \begin{gather*}
+    D_{JS}(\mathbb P||\mathbb Q)=D_{KL}(\mathbb P||\mathbb M)+D_{KL}(\mathbb Q||\mathbb M)\\
+    M=(\mathbb P+\mathbb Q)/2
+    \end{gather*}
+    $$
+
+3. [**动土者距离**](https://en.wikipedia.org/wiki/Earth_mover%27s_distance) (Earth Mover's distance, EMD)：
+
+    如果 $\mathbb P,\mathbb Q$ 这两个分布有着概率密度函数 $p,q,P(x)=\int_{-\infty}^xp(t)\mathrm dt,Q(x)=\int_{-\infty}^q(t)\mathrm dt$，则它们的**动土者距离**为：
+
+    $$
+    W_1(\mathbb P,\mathbb Q)=\int_{-\infty}^{\infty}|P(x)-Q(x)|\mathrm dx
+    $$
+
+    动土者距离是计算机科学上的称谓，在数学领域，一般把这种距离称为 [**Wasserstein-1 距离**](https://en.wikipedia.org/wiki/Wasserstein_metric)或者 **Kantorovich–Rubinstein 距离**。从直观上理解，如果把 $y=p(x),y=q(x)$ 的图像画出来，动土者距离就相当于把 $p(x)$ “搬运”成 $q(x)$ 最小需要耗费的代价（只计水平方向上的）。
+
+### 不同距离的强弱
+
+**定理 1**：记 $\mathbb P$ 是一个一维的概率分布，$\left\{\mathbb P_n\right\}$ 是一个概率分布的序列，$\mathbb P$ 有着概率密度函数 $p$，$\mathbb P_i$ 有着概率密度函数 $p_i$，则，考虑它们在 $n\to\infty$ 的极限：
+
+1. 以下两个命题等价：
+    - $\delta(\mathbb P_n,\mathbb P)\to 0$
+    - $D_{JS}(\mathbb P_n,\mathbb P)\to 0$
+2. 以下两个命题等价：
+    - $W(\mathbb P_n,\mathbb P)\to 0$
+    - $\mathbb P_n\xrightarrow{\mathcal D}\mathbb P$，其中 $\xrightarrow{\mathcal D}$ 代表**依分布收敛** (convergence in distribution)，即，$\forall x,\lim_{n\to\infty}p_n(x)=p(x)$。
+3. 若 $D_{KL}(\mathbb P_n||\mathbb P)\to 0$ 或 $D_{KL}(\mathbb P_n||\mathbb P)\to 0$，则 1 中命题成立。
+4. 若 1 中命题成立，则 2 中命题成立。
+
+TBC
+
+### 各种不同的距离
 
 先介绍一些符号和定义。记 $\mathcal X$ 是一个**紧致度量空间** (compact metric set)，$\Sigma$ 表示 $\mathcal X$ 上所有 Borel 子集的集合，设 $\operatorname{Prob}(\mathcal X)$ 表示定义在 $\mathcal X$ 上的概率测度空间 (space of probability measures)。我们现在可以定义两个分布 $\mathbb P_r,\mathbb P_g\in\operatorname{Prob}(\mathcal X)$ 之间的基本距离和散度：
 
@@ -133,10 +203,10 @@ $$
 3. **Jensen-Shannon 散度** (JS)：
 
     $$
-    \begin{gather}
+    \begin{gather*}
     JS(\mathbb P_r,\mathbb P_g)=KL(\mathbb P_r ||\mathbb P_m) + KL(\mathbb P_g || \mathbb P_m) \\
     \mathbb P_m = (\mathbb P_r + \mathbb P_g) / 2
-    \end{gather}
+    \end{gather*}
     $$
 
     这个散度是对称的，并且总是有定义的，因为我们可以选择 $\mu = \mathbb P_m$。
