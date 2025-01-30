@@ -8,6 +8,8 @@
 
 本篇博客是我“科学与社会”研讨课的一部分。本文作为个人的学习笔记可能不是非常详细，具体请参考[链接](https://keras.io/examples/generative/conditional_gan/)。
 
+本文介绍了 Conditional GAN，Wasserstein 比较**浅要的理解**，以及 WGAN-GP (添加梯度惩罚项的一种 Wasserstein GAN) 的**实现心得**。
+
 ## 为什么要 Conditional GAN
 
 - GAN (Generative Adversarial Network，生成式对抗网络) 让我们很方便地使用随机信号生成各种数据（图片、视频、音频）等。
@@ -93,10 +95,6 @@ Wasserstein GAN 旨在解决的就是**梯度消失**和**模式坍缩**这两�
 
     由于本人对一些数学名词的正确翻译并不熟悉，以下部分内容使用 [DeepSeek](https://chat.deepseek.com/) 翻译。可能存在一些名词上的不严谨。
 
-!!! warning "以下内容有待补充"
-
-    现在以下内容基本上从 DeepSeek 翻译中摘录而来，尚未增添适当的注解和补充。这些工作后续将进行。
-
 传统的**无监督学习**方法往往是去学习一个未知的概率密度 (probability density)。具体来说，给定一组真实数据的样本 $\{x^{(i)}\}^m_{i=1}$，传统方法会定义一个参数化的密度族 (parametric family of densities) $(P_{\theta})_{\theta\in\mathbb R^d}$，并寻找能最大化数据似然 (likelihood) 的参数：
 
 $$
@@ -133,7 +131,7 @@ Wasserstein GAN 最小化的目标就是（近似的）Wasserstein 距离，这�
     \delta(\mathbb P,\mathbb Q)=\frac{1}{2}\int_{-\infty}^{+\infty} |p(x)-q(x)|\mathrm dx
     $$
 
-    从直观上理解，如果把 $y=p(x),y=q(x)$ 画出来，它们的总变差距离就是两个函数之间包围的面积。
+    从直观上理解，如果把 $y=p(x),y=q(x)$ 画出来，它们的总变差距离就是两个函数之间包围的面积。在后面为了方便，我们又记 $\delta(\mathbb P,\mathbb Q)=||\mathbb P - \mathbb Q||_{TV}$。
 
 2. [**Kullback-Leibler 散度**](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) (KL)：
 
@@ -167,54 +165,78 @@ Wasserstein GAN 最小化的目标就是（近似的）Wasserstein 距离，这�
 
 ### 不同距离的强弱
 
-**定理 1**：记 $\mathbb P$ 是一个一维的概率分布，$\left\{\mathbb P_n\right\}$ 是一个概率分布的序列，$\mathbb P$ 有着概率密度函数 $p$，$\mathbb P_i$ 有着概率密度函数 $p_i$，则，考虑它们在 $n\to\infty$ 的极限：
+#### 定理 1
+
+记 $\mathbb P$ 是一个一维的概率分布，$\left\{\mathbb P_n\right\}$ 是一个概率分布的序列，$\mathbb P$ 有着概率密度函数 $p$，$\mathbb P_i$ 有着概率密度函数 $p_i$，则，考虑它们在 $n\to\infty$ 的极限：
 
 1. 以下两个命题等价：
     - $\delta(\mathbb P_n,\mathbb P)\to 0$
     - $D_{JS}(\mathbb P_n,\mathbb P)\to 0$
 2. 以下两个命题等价：
-    - $W(\mathbb P_n,\mathbb P)\to 0$
-    - $\mathbb P_n\xrightarrow{\mathcal D}\mathbb P$，其中 $\xrightarrow{\mathcal D}$ 代表**依分布收敛** (convergence in distribution)，即，$\forall x,\lim_{n\to\infty}p_n(x)=p(x)$。
+    - $W_1(\mathbb P_n,\mathbb P)\to 0$
+    - $\mathbb P_n\xrightarrow{\mathcal D}\mathbb P$，其中 $\xrightarrow{\mathcal D}$ 代表**依分布收敛** (convergence in distribution)，即，$p_n(x)$ **逐点收敛**于 $p(x)$
 3. 若 $D_{KL}(\mathbb P_n||\mathbb P)\to 0$ 或 $D_{KL}(\mathbb P_n||\mathbb P)\to 0$，则 1 中命题成立。
 4. 若 1 中命题成立，则 2 中命题成立。
 
-TBC
+为了定理证明的方便，我们增加 $p,p_i$ 在 $\mathbb R$ 上可积的条件。
 
-### 各种不同的距离
+#### 证明 1
 
-先介绍一些符号和定义。记 $\mathcal X$ 是一个**紧致度量空间** (compact metric set)，$\Sigma$ 表示 $\mathcal X$ 上所有 Borel 子集的集合，设 $\operatorname{Prob}(\mathcal X)$ 表示定义在 $\mathcal X$ 上的概率测度空间 (space of probability measures)。我们现在可以定义两个分布 $\mathbb P_r,\mathbb P_g\in\operatorname{Prob}(\mathcal X)$ 之间的基本距离和散度：
+1. $(\delta(\mathbb P_n,\mathbb P)\Rightarrow D_{JS}(\mathbb P_n,\mathbb P)\to 0):$
 
-1. **总变差距离** (**Total Variation**, TV)：
-    
-    $$
-    \delta(\mathbb P_r,\mathbb P_g)=\sup_{A\in\Sigma}|\mathbb P_r(A)-\mathbb P_g(A)|
-    $$
-
-2. **Kullback-Leibler 散度** (KL)：
-   
-    $$
-    KL(\mathbb P_r ||\mathbb P_g) = \int\log\left(\frac{P_r(x)}{P_g(x)}\right)\mathrm d\mu(x)
-    $$
-
-    其中假设 $\mathbb P_r$ 和 $\mathbb P_g$ 都是关于 $\mathcal X$ 上定义的某个测度 $\mu$ 绝对连续的，因此它们存在密度函数。
-
-    KL 散度是著名的非对称散度，并且当存在某些点使得 $P_g(x)=0$ 且 $P_r(x)>0$ 时，KL 散度可能是无穷大。
-
-3. **Jensen-Shannon 散度** (JS)：
+    记 $\mathbb P_m=\frac{1}{2}\mathbb P_n+\frac{1}{2}\mathbb P$（注意这个 $\mathbb P_m$ 和 $Pn$ 是有关的），则：
 
     $$
-    \begin{gather*}
-    JS(\mathbb P_r,\mathbb P_g)=KL(\mathbb P_r ||\mathbb P_m) + KL(\mathbb P_g || \mathbb P_m) \\
-    \mathbb P_m = (\mathbb P_r + \mathbb P_g) / 2
-    \end{gather*}
+    \begin{aligned}
+    \delta(\mathbb P_m,\mathbb P_n) &= ||\mathbb P_m - \mathbb P_n||_{TV}\\
+    &= ||\frac{1}{2}\mathbb P+\frac{1}{2}\mathbb P_n-\mathbb P_n||_{TV}\\
+    &= \frac{1}{2}||\mathbb P-\mathbb P_n||_{TV}\\
+    &= \frac{1}{2}\delta(\mathbb P_n,\mathbb P) \le \delta(\mathbb P_n, \mathbb P)
+    \end{aligned}
     $$
 
-    这个散度是对称的，并且总是有定义的，因为我们可以选择 $\mu = \mathbb P_m$。
+    !!! warning "此处证明待完成"
 
-4. **Earth-Mover 距离** (EM) 或 **Wasserstein-1 距离**：
 
-    $$
-    W(\mathbb P_r,\mathbb P_g) = \inf_{\gamma\in\Pi(\mathbb P_r,\mathbb P_g)}\mathbb E_{(x,y)\sim\gamma}\left[||x-y||\right]
-    $$
+### 如何使用 EM 距离
 
-    其中 $\Pi(\mathbb P_r, \mathbb P_g)$ 表示所有联合分布 $\gamma(x, y)$ 的集合，其边缘分布分别为 $\mathbb P_r$ 和 $\mathbb P_g$，必须从 $x$ 到 $y$ 传输的“质量”。EM 距离是最优传输计划的“臣本”。
+以上的定理使用[测度论](https://en.wikipedia.org/wiki/Measure_(mathematics))的知识，可以扩展到更高维度的情形下仍然成立。所以，在 GAN 的训练中，使用 Wasserstein-1 距离比起 Kullback-Leibler 散度显然是一个更好的选择。现在的问题就是，如何训练一个 GAN 使得它近似地让 Wasserstein-1 距离达到最小。
+
+在一般情况下，上文中 Wasserstein-1 距离的定义可以扩展为：(Kantorovich-Rubinstein 对偶性)
+
+$$
+W_1(\mathbb P_r,\mathbb P_{\theta}) = \sup_{||f||_L\le 1}\mathbb E_{x\sim\mathbb P_r}[f(x)]-\mathbb E_{x\sim\mathbb P_{\theta}}[f(x)]
+$$
+
+其中 $||f||_{L}\le 1$ 表示 $f$ 符合 1-Lipschitz 条件，所以，如果我们有符合 K-Lipschitz 条件的参数化函数族 $\left\{ f_{w}\right\}_{w\in\mathcal W}$，我们可以考虑最大化：
+
+$$
+\max_{w \in \mathcal W}\mathbb E_{x\sim\mathbb P_r}[f_{w}(x)]-\mathbb E_{x\sim p(x)}[f_{w}(g_{\theta}(z))]
+$$
+
+以这个作为目标函数，就相当于让 Wasserstein 距离达到最小——但是，前提是要保证鉴别器的神经网络**能够 Lipschitz 连续**。关于如何让鉴别器的神经网络 Lipschitz 连续是一个值得单独拿出来讨论的话题。在原论文中，作者的做法是把边权约束在一个指定的区间内。不过，后来也出现了效果更好的方法，比如，下面介绍的 [WGAN-GP](https://arxiv.org/abs/1704.00028) 所用的就是增添一个“梯度惩罚” (gradient penalty) 项——即，保证生成器的 L2 范数 (norm) 接近 1。
+
+## WGAN-GP 的实现
+
+!!! note "本文参考 [Keras 官网的教程](https://keras.io/examples/generative/wgan_gp/)"
+
+    本文只记录作者在实现 [WGAN-GP](https://arxiv.org/abs/1704.00028) 过程中的**一些想法和体会**，以及在实现上与原教程不同的地方。原教程是一篇非常优秀的教程，如果想要系统地学习如何实现 WGAN-GP，建议从原教程而不是我浅薄的见解入手。
+
+在[论文](https://arxiv.org/abs/1704.00028)第 4 节，作者在目标函数中加入了一项“梯度损失”，即：
+
+$$
+L=\mathbb E_{\tilde{\boldsymbol{x}}\sim\mathbb P_g}[D(\tilde{\boldsymbol{x}})]-\mathbb E_{\boldsymbol{x}\sim\mathbb P_r}[D(\boldsymbol{x})]+\lambda\mathbb E_{\hat{\boldsymbol{x}}\sim\mathbb P_{\hat{\boldsymbol{x}}}}\left[(||\nabla_{\hat{\boldsymbol{x}}}D(\hat{\boldsymbol{x}}||_2-1)^2\right]
+$$
+
+其中这个 $\hat{\boldsymbol{x}}$ 是一个随机的在真实和虚假照片中插值得到的照片。
+
+
+
+## 总结
+
+- Conditonal GAN：和一般的 GAN 一样，但是在生成器和鉴别器的输入中**加入附加信息**。
+- Wasserstein GAN：
+    - 传统的 GAN 训练的**目标函数**相当于让生成器分布与真实分布的 **Kullback-Leibler 散度**最小。
+    - 但是 Kullback-Leibler 散度是一个很强的距离，实践中很难对其进行优化。
+    - 使用 **Wasserstein-1 距离**作为替代会让训练简单很多。
+    - 实践上，需要在**改变目标函数**的同时，保障鉴别器的神经网络符合 **Lipschitz 条件**。
