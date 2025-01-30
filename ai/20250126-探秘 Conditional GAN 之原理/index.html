@@ -437,12 +437,22 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="不同距离的强弱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理 1
+    </span>
+  </a>
+  
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#1_1" class="md-nav__link">
     <span class="md-ellipsis">
-      各种不同的距离
+      证明 1
     </span>
   </a>
   
@@ -450,6 +460,38 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#em" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何使用 EM 距离
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wgan-gp" class="md-nav__link">
+    <span class="md-ellipsis">
+      WGAN-GP 的实现
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
   
 </li>
       
@@ -777,12 +819,22 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="不同距离的强弱">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      定理 1
+    </span>
+  </a>
+  
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
+  <a href="#1_1" class="md-nav__link">
     <span class="md-ellipsis">
-      各种不同的距离
+      证明 1
     </span>
   </a>
   
@@ -790,6 +842,38 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#em" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何使用 EM 距离
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wgan-gp" class="md-nav__link">
+    <span class="md-ellipsis">
+      WGAN-GP 的实现
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
   
 </li>
       
@@ -820,6 +904,7 @@
 <p>由于该文章为本人大一时为<a href="https://www.teach.ustc.edu.cn/?attachment_id=17309">“科学与社会”研讨课</a>学习需要而创作。由于作者才疏学浅，在严谨性上可能存在缺陷。</p>
 </div>
 <p>本篇博客是我“科学与社会”研讨课的一部分。本文作为个人的学习笔记可能不是非常详细，具体请参考<a href="https://keras.io/examples/generative/conditional_gan/">链接</a>。</p>
+<p>本文介绍了 Conditional GAN，Wasserstein 比较<strong>浅要的理解</strong>，以及 WGAN-GP (添加梯度惩罚项的一种 Wasserstein GAN) 的<strong>实现心得</strong>。</p>
 <h2 id="conditional-gan_1">为什么要 Conditional GAN</h2>
 <ul>
 <li>GAN (Generative Adversarial Network，生成式对抗网络) 让我们很方便地使用随机信号生成各种数据（图片、视频、音频）等。</li>
@@ -887,10 +972,6 @@
 <p class="admonition-title">以下部分内容使用 <a href="https://chat.deepseek.com/">Deepseek</a> 翻译</p>
 <p>由于本人对一些数学名词的正确翻译并不熟悉，以下部分内容使用 <a href="https://chat.deepseek.com/">DeepSeek</a> 翻译。可能存在一些名词上的不严谨。</p>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">以下内容有待补充</p>
-<p>现在以下内容基本上从 DeepSeek 翻译中摘录而来，尚未增添适当的注解和补充。这些工作后续将进行。</p>
-</div>
 <p>传统的<strong>无监督学习</strong>方法往往是去学习一个未知的概率密度 (probability density)。具体来说，给定一组真实数据的样本 <span class="arithmatex">\(\{x^{(i)}\}^m_{i=1}\)</span>，传统方法会定义一个参数化的密度族 (parametric family of densities) <span class="arithmatex">\((P_{\theta})_{\theta\in\mathbb R^d}\)</span>，并寻找能最大化数据似然 (likelihood) 的参数：</p>
 <div class="arithmatex">\[
 \max_{\theta\in\mathbb R^d}\frac{1}{m}\sum_{i=1}^m\log P_{\theta}(x^{(i)})
@@ -913,7 +994,7 @@
 <div class="arithmatex">\[
 \delta(\mathbb P,\mathbb Q)=\frac{1}{2}\int_{-\infty}^{+\infty} |p(x)-q(x)|\mathrm dx
 \]</div>
-<p>从直观上理解，如果把 <span class="arithmatex">\(y=p(x),y=q(x)\)</span> 画出来，它们的总变差距离就是两个函数之间包围的面积。</p>
+<p>从直观上理解，如果把 <span class="arithmatex">\(y=p(x),y=q(x)\)</span> 画出来，它们的总变差距离就是两个函数之间包围的面积。在后面为了方便，我们又记 <span class="arithmatex">\(\delta(\mathbb P,\mathbb Q)=||\mathbb P - \mathbb Q||_{TV}\)</span>。</p>
 </li>
 <li>
 <p><a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence"><strong>Kullback-Leibler 散度</strong></a> (KL)：</p>
@@ -942,7 +1023,8 @@ W_1(\mathbb P,\mathbb Q)=\int_{-\infty}^{\infty}|P(x)-Q(x)|\mathrm dx
 </li>
 </ol>
 <h3 id="_6">不同距离的强弱</h3>
-<p><strong>定理 1</strong>：记 <span class="arithmatex">\(\mathbb P\)</span> 是一个一维的概率分布，<span class="arithmatex">\(\left\{\mathbb P_n\right\}\)</span> 是一个概率分布的序列，<span class="arithmatex">\(\mathbb P\)</span> 有着概率密度函数 <span class="arithmatex">\(p\)</span>，<span class="arithmatex">\(\mathbb P_i\)</span> 有着概率密度函数 <span class="arithmatex">\(p_i\)</span>，则，考虑它们在 <span class="arithmatex">\(n\to\infty\)</span> 的极限：</p>
+<h4 id="1">定理 1</h4>
+<p>记 <span class="arithmatex">\(\mathbb P\)</span> 是一个一维的概率分布，<span class="arithmatex">\(\left\{\mathbb P_n\right\}\)</span> 是一个概率分布的序列，<span class="arithmatex">\(\mathbb P\)</span> 有着概率密度函数 <span class="arithmatex">\(p\)</span>，<span class="arithmatex">\(\mathbb P_i\)</span> 有着概率密度函数 <span class="arithmatex">\(p_i\)</span>，则，考虑它们在 <span class="arithmatex">\(n\to\infty\)</span> 的极限：</p>
 <ol>
 <li>以下两个命题等价：<ul>
 <li><span class="arithmatex">\(\delta(\mathbb P_n,\mathbb P)\to 0\)</span></li>
@@ -950,49 +1032,64 @@ W_1(\mathbb P,\mathbb Q)=\int_{-\infty}^{\infty}|P(x)-Q(x)|\mathrm dx
 </ul>
 </li>
 <li>以下两个命题等价：<ul>
-<li><span class="arithmatex">\(W(\mathbb P_n,\mathbb P)\to 0\)</span></li>
-<li><span class="arithmatex">\(\mathbb P_n\xrightarrow{\mathcal D}\mathbb P\)</span>，其中 <span class="arithmatex">\(\xrightarrow{\mathcal D}\)</span> 代表<strong>依分布收敛</strong> (convergence in distribution)，即，<span class="arithmatex">\(\forall x,\lim_{n\to\infty}p_n(x)=p(x)\)</span>。</li>
+<li><span class="arithmatex">\(W_1(\mathbb P_n,\mathbb P)\to 0\)</span></li>
+<li><span class="arithmatex">\(\mathbb P_n\xrightarrow{\mathcal D}\mathbb P\)</span>，其中 <span class="arithmatex">\(\xrightarrow{\mathcal D}\)</span> 代表<strong>依分布收敛</strong> (convergence in distribution)，即，<span class="arithmatex">\(p_n(x)\)</span> <strong>逐点收敛</strong>于 <span class="arithmatex">\(p(x)\)</span></li>
 </ul>
 </li>
 <li>若 <span class="arithmatex">\(D_{KL}(\mathbb P_n||\mathbb P)\to 0\)</span> 或 <span class="arithmatex">\(D_{KL}(\mathbb P_n||\mathbb P)\to 0\)</span>，则 1 中命题成立。</li>
 <li>若 1 中命题成立，则 2 中命题成立。</li>
 </ol>
-<p>TBC</p>
-<h3 id="_7">各种不同的距离</h3>
-<p>先介绍一些符号和定义。记 <span class="arithmatex">\(\mathcal X\)</span> 是一个<strong>紧致度量空间</strong> (compact metric set)，<span class="arithmatex">\(\Sigma\)</span> 表示 <span class="arithmatex">\(\mathcal X\)</span> 上所有 Borel 子集的集合，设 <span class="arithmatex">\(\operatorname{Prob}(\mathcal X)\)</span> 表示定义在 <span class="arithmatex">\(\mathcal X\)</span> 上的概率测度空间 (space of probability measures)。我们现在可以定义两个分布 <span class="arithmatex">\(\mathbb P_r,\mathbb P_g\in\operatorname{Prob}(\mathcal X)\)</span> 之间的基本距离和散度：</p>
+<p>为了定理证明的方便，我们增加 <span class="arithmatex">\(p,p_i\)</span> 在 <span class="arithmatex">\(\mathbb R\)</span> 上可积的条件。</p>
+<h4 id="1_1">证明 1</h4>
 <ol>
 <li>
-<p><strong>总变差距离</strong> (<strong>Total Variation</strong>, TV)：</p>
+<p><span class="arithmatex">\((\delta(\mathbb P_n,\mathbb P)\Rightarrow D_{JS}(\mathbb P_n,\mathbb P)\to 0):\)</span></p>
+<p>记 <span class="arithmatex">\(\mathbb P_m=\frac{1}{2}\mathbb P_n+\frac{1}{2}\mathbb P\)</span>（注意这个 <span class="arithmatex">\(\mathbb P_m\)</span> 和 <span class="arithmatex">\(Pn\)</span> 是有关的），则：</p>
 <div class="arithmatex">\[
-\delta(\mathbb P_r,\mathbb P_g)=\sup_{A\in\Sigma}|\mathbb P_r(A)-\mathbb P_g(A)|
+\begin{aligned}
+\delta(\mathbb P_m,\mathbb P_n) &amp;= ||\mathbb P_m - \mathbb P_n||_{TV}\\
+&amp;= ||\frac{1}{2}\mathbb P+\frac{1}{2}\mathbb P_n-\mathbb P_n||_{TV}\\
+&amp;= \frac{1}{2}||\mathbb P-\mathbb P_n||_{TV}\\
+&amp;= \frac{1}{2}\delta(\mathbb P_n,\mathbb P) \le \delta(\mathbb P_n, \mathbb P)
+\end{aligned}
 \]</div>
-</li>
-<li>
-<p><strong>Kullback-Leibler 散度</strong> (KL)：</p>
-<div class="arithmatex">\[
-KL(\mathbb P_r ||\mathbb P_g) = \int\log\left(\frac{P_r(x)}{P_g(x)}\right)\mathrm d\mu(x)
-\]</div>
-<p>其中假设 <span class="arithmatex">\(\mathbb P_r\)</span> 和 <span class="arithmatex">\(\mathbb P_g\)</span> 都是关于 <span class="arithmatex">\(\mathcal X\)</span> 上定义的某个测度 <span class="arithmatex">\(\mu\)</span> 绝对连续的，因此它们存在密度函数。</p>
-<p>KL 散度是著名的非对称散度，并且当存在某些点使得 <span class="arithmatex">\(P_g(x)=0\)</span> 且 <span class="arithmatex">\(P_r(x)&gt;0\)</span> 时，KL 散度可能是无穷大。</p>
-</li>
-<li>
-<p><strong>Jensen-Shannon 散度</strong> (JS)：</p>
-<div class="arithmatex">\[
-\begin{gather*}
-JS(\mathbb P_r,\mathbb P_g)=KL(\mathbb P_r ||\mathbb P_m) + KL(\mathbb P_g || \mathbb P_m) \\
-\mathbb P_m = (\mathbb P_r + \mathbb P_g) / 2
-\end{gather*}
-\]</div>
-<p>这个散度是对称的，并且总是有定义的，因为我们可以选择 <span class="arithmatex">\(\mu = \mathbb P_m\)</span>。</p>
-</li>
-<li>
-<p><strong>Earth-Mover 距离</strong> (EM) 或 <strong>Wasserstein-1 距离</strong>：</p>
-<div class="arithmatex">\[
-W(\mathbb P_r,\mathbb P_g) = \inf_{\gamma\in\Pi(\mathbb P_r,\mathbb P_g)}\mathbb E_{(x,y)\sim\gamma}\left[||x-y||\right]
-\]</div>
-<p>其中 <span class="arithmatex">\(\Pi(\mathbb P_r, \mathbb P_g)\)</span> 表示所有联合分布 <span class="arithmatex">\(\gamma(x, y)\)</span> 的集合，其边缘分布分别为 <span class="arithmatex">\(\mathbb P_r\)</span> 和 <span class="arithmatex">\(\mathbb P_g\)</span>，必须从 <span class="arithmatex">\(x\)</span> 到 <span class="arithmatex">\(y\)</span> 传输的“质量”。EM 距离是最优传输计划的“臣本”。</p>
+<div class="admonition warning">
+<p class="admonition-title">此处证明待完成</p>
+</div>
 </li>
 </ol>
+<h3 id="em">如何使用 EM 距离</h3>
+<p>以上的定理使用<a href="https://en.wikipedia.org/wiki/Measure_(mathematics)">测度论</a>的知识，可以扩展到更高维度的情形下仍然成立。所以，在 GAN 的训练中，使用 Wasserstein-1 距离比起 Kullback-Leibler 散度显然是一个更好的选择。现在的问题就是，如何训练一个 GAN 使得它近似地让 Wasserstein-1 距离达到最小。</p>
+<p>在一般情况下，上文中 Wasserstein-1 距离的定义可以扩展为：(Kantorovich-Rubinstein 对偶性)</p>
+<div class="arithmatex">\[
+W_1(\mathbb P_r,\mathbb P_{\theta}) = \sup_{||f||_L\le 1}\mathbb E_{x\sim\mathbb P_r}[f(x)]-\mathbb E_{x\sim\mathbb P_{\theta}}[f(x)]
+\]</div>
+<p>其中 <span class="arithmatex">\(||f||_{L}\le 1\)</span> 表示 <span class="arithmatex">\(f\)</span> 符合 1-Lipschitz 条件，所以，如果我们有符合 K-Lipschitz 条件的参数化函数族 <span class="arithmatex">\(\left\{ f_{w}\right\}_{w\in\mathcal W}\)</span>，我们可以考虑最大化：</p>
+<div class="arithmatex">\[
+\max_{w \in \mathcal W}\mathbb E_{x\sim\mathbb P_r}[f_{w}(x)]-\mathbb E_{x\sim p(x)}[f_{w}(g_{\theta}(z))]
+\]</div>
+<p>以这个作为目标函数，就相当于让 Wasserstein 距离达到最小——但是，前提是要保证鉴别器的神经网络<strong>能够 Lipschitz 连续</strong>。关于如何让鉴别器的神经网络 Lipschitz 连续是一个值得单独拿出来讨论的话题。在原论文中，作者的做法是把边权约束在一个指定的区间内。不过，后来也出现了效果更好的方法，比如，下面介绍的 <a href="https://arxiv.org/abs/1704.00028">WGAN-GP</a> 所用的就是增添一个“梯度惩罚” (gradient penalty) 项——即，保证生成器的 L2 范数 (norm) 接近 1。</p>
+<h2 id="wgan-gp">WGAN-GP 的实现</h2>
+<div class="admonition note">
+<p class="admonition-title">本文参考 <a href="https://keras.io/examples/generative/wgan_gp/">Keras 官网的教程</a></p>
+<p>本文只记录作者在实现 <a href="https://arxiv.org/abs/1704.00028">WGAN-GP</a> 过程中的<strong>一些想法和体会</strong>，以及在实现上与原教程不同的地方。原教程是一篇非常优秀的教程，如果想要系统地学习如何实现 WGAN-GP，建议从原教程而不是我浅薄的见解入手。</p>
+</div>
+<p>在<a href="https://arxiv.org/abs/1704.00028">论文</a>第 4 节，作者在目标函数中加入了一项“梯度损失”，即：</p>
+<div class="arithmatex">\[
+L=\mathbb E_{\tilde{\boldsymbol{x}}\sim\mathbb P_g}[D(\tilde{\boldsymbol{x}})]-\mathbb E_{\boldsymbol{x}\sim\mathbb P_r}[D(\boldsymbol{x})]+\lambda\mathbb E_{\hat{\boldsymbol{x}}\sim\mathbb P_{\hat{\boldsymbol{x}}}}\left[(||\nabla_{\hat{\boldsymbol{x}}}D(\hat{\boldsymbol{x}}||_2-1)^2\right]
+\]</div>
+<p>其中这个 <span class="arithmatex">\(\hat{\boldsymbol{x}}\)</span> 是一个随机的在真实和虚假照片中插值得到的照片。</p>
+<h2 id="_7">总结</h2>
+<ul>
+<li>Conditonal GAN：和一般的 GAN 一样，但是在生成器和鉴别器的输入中<strong>加入附加信息</strong>。</li>
+<li>Wasserstein GAN：<ul>
+<li>传统的 GAN 训练的<strong>目标函数</strong>相当于让生成器分布与真实分布的 <strong>Kullback-Leibler 散度</strong>最小。</li>
+<li>但是 Kullback-Leibler 散度是一个很强的距离，实践中很难对其进行优化。</li>
+<li>使用 <strong>Wasserstein-1 距离</strong>作为替代会让训练简单很多。</li>
+<li>实践上，需要在<strong>改变目标函数</strong>的同时，保障鉴别器的神经网络符合 <strong>Lipschitz 条件</strong>。</li>
+</ul>
+</li>
+</ul>
 
 
 
@@ -1015,7 +1112,7 @@ W(\mathbb P_r,\mathbb P_g) = \inf_{\gamma\in\Pi(\mathbb P_r,\mathbb P_g)}\mathbb
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月28日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年1月30日</span>
   </span>
 
     
